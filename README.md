@@ -1,0 +1,118 @@
+<h1 align="center" style="color:#0091EA; font-weight:bold;">
+    
+  <a href="#"> POTIANUNCIOS </a>
+</h1>
+
+<p align="center">
+ <a href="#ℹ%EF%B8%8F-sobre-o-projeto">Sobre</a> •
+ <a href="#%EF%B8%8F-funcionalidades">Funcionalidades</a> •
+ <a href="#-layout">Layout</a> •
+ <a href="#-como-executar-o-projeto">Como executar</a> •
+ <a href="#-tecnologias">Tecnologias</a> •
+ <a href="#-autores">Autores</a> •
+ <a href="#-licença">Licença</a>
+</p>
+
+
+## ℹ️ Sobre o projeto
+Enim commodo adipisicing est adipisicing proident dolore elit.
+ [Escola Agrícola de Jundiaí](https://eaj.ufrn.br/).
+
+ ## ⚙️ Funcionalidades
+
+- [x] Reprehenderit consequat deserunt ea sunt amet quis amet ipsum fugiat voluptate ad laboris magna.
+- [x] Id amet ex sit elit.
+- [x] Ullamco eiusmod culpa cupidatat qui veniam.
+- [x] Ipsum ea consectetur ut consectetur commodo ipsum Lorem ad mollit voluptate aliqua consectetur enim.
+
+---
+
+
+---
+
+## 🚀 Como executar o projeto
+
+Este projeto é divido em duas partes:
+1. Backend ([backend folder]())
+2. Frontend ([frontend folder]())
+
+💡Frontend precisa que o Backend esteja sendo executado para funcionar.
+
+### Pré-requisitos
+
+Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas: [Git](https://git-scm.com), [Node.js](https://nodejs.org/en/), [Docker](https://www.docker.com/). Além disto é bom ter um editor para trabalhar com o código como [VSCode](https://code.visualstudio.com/).
+
+#### 🏁 Começar
+```bash
+
+# Clone este repositório
+$ git clone https://github.com/brunojamelli/potianuncios-api.git
+
+# Acesse a pasta do projeto no terminal/cmd
+$ cd potianuncios-api
+
+```
+#### 🐳 Se você não tem o docker
+```bash
+
+# baixe o instalador genérico do site oficial do docker
+$ curl -fsSL https://get.docker.com -o get-docker.sh
+
+# usando instalador genérico
+$ sh get-docker.sh
+
+```
+
+#### 🎲 Rodando o Backend (servidor)
+
+```bash
+
+# Vá para a pasta da aplicação Backend
+$ cd backend
+
+# Instale as dependências
+$ npm install
+
+# Execute a aplicação 
+$ docker-compose up --build
+
+# O servidor inciará na porta:3333 - acesse http://localhost:3333
+
+# Execute os testes
+$ docker exec api-server npm test
+
+```
+
+---
+
+## 🛠 Tecnologias
+
+As seguintes ferramentas foram usadas na construção do projeto:
+
+### 🌐 **Backend** ([Node.js](https://nodejs.org/en/))
+- **[Express](https://expressjs.com/)**
+- **[Celebrate](https://github.com/arb/celebrate)**
+- **[CORS](https://expressjs.com/en/resources/middleware/cors.html)**
+- **[KnexJS](http://knexjs.org/)**
+- **[Dotenv-safe](https://www.npmjs.com/package/dotenv-safe)**
+- **[Jsonwebtoken](https://github.com/auth0/node-jsonwebtoken)**
+- **[Morgan](https://github.com/expressjs/morgan)**
+- **[Pg](https://github.com/brianc/node-postgres)**
+
+> Veja o arquivo [package.json](https://github.com/BiaChacon/spaces-scheduling/blob/master/backend/package.json)
+
+---
+
+## 👩🏽‍💻 Autores
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/brunojamelli"><img src="https://avatars0.githubusercontent.com/u/21262825?s=400&u=8d99e00b964f6e0eb0684b34b9094a6c6163b65e&v=4" width="100px;" alt=""/><br /><sub><b>Bruno Jamelli</b></sub></a><br /><a href="https://github.com/brunojamelli/potianuncios-api" title="Code">💻 🎨</a></td>
+  <tr>
+</table>
+
+---
+
+## 📝 Licença
+This project is under MIT. See at here [LICENSE](https://github.com/BiaChacon/spaces-scheduling/blob/master/LICENSE) for more informations.
+
+---
