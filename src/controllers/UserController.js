@@ -39,3 +39,5 @@ exports.login = (request, response, next) => {
     if (!user) { return response.status(500).json({ auth: false, message: 'Login inválido!' }); }
     return response.json({ auth: true, token: generateAccessToken(user.id), user: { id: user.id, username: user.username, role: user.role } });
 };
+
+
