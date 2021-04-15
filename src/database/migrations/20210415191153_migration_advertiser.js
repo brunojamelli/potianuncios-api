@@ -1,7 +1,7 @@
 
 exports.up = function(knex) {
     return knex.schema.createTable('advertisers', function (table) {
-        table.increments('advertiserId');   
+        table.increments('id');   
         table.string('name'); 
         table.string('whatsapp'); 
         table.string('email'); 
