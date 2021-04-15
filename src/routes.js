@@ -1,4 +1,4 @@
-// const UserController = require('/Controllers/UserController');
+require("dotenv-safe").config();
 const UserController = require('./controllers/UserController');
 const express = require('express');
 
