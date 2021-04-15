@@ -1,4 +1,5 @@
-const connection = require("../database/connection");
+// const connection = require("../database/connection");
+const connection = require('../database/connection');
 
 module.exports = {
     create(request, response) {
@@ -13,6 +14,7 @@ module.exports = {
             valid,
             validateFor
         } = request.body;
+        
         return response.json("cadastrado");
     },
 
