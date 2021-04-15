@@ -1,15 +1,17 @@
 // require("dotenv-safe").config();
-const UserController = require('./controllers/UserController');
+const AdController = require('./controllers/AdvertiserController');
+const AnController = require('./controllers/AnnouncementController');
 const express = require('express');
 
 const routes = express.Router();
 
-routes.post('/usuario', UserController.post);
-routes.put('/usuario/:id', UserController.put);
-routes.delete('/usuario/:id', UserController.delete);
-routes.get('/usuarios', UserController.get);
-routes.get('/usuario/:id', UserController.getById);
+routes.post('/usuario', AdController.post);
+routes.put('/usuario/:id', AdController.put);
+routes.delete('/usuario/:id', AdController.delete);
+routes.get('/usuarios', AdController.get);
+routes.get('/usuario/:id', AdController.getById);
 
-
+routes.post('/announcement', AnController.create);
+routes.get('/announcement', AnController.show)
 
 module.exports = routes;
