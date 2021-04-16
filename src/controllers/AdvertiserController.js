@@ -2,6 +2,8 @@ function generateAccessToken(user) {
     // expires after half and hour (600 seconds = 10 minutes)
     return jwt.sign({ user }, process.env.SECRET, { expiresIn: 600 });
 }
+const connection = require('../database/connection');
+
 module.exports = {
     async create(request, response) {
         const {
@@ -16,7 +18,7 @@ module.exports = {
             return response.status(400).send("Passoword invalid");
         }
 
-        const id = generateUniqueId();
+        // const id = generateUniqueId();
         let res = await connection('advertisers').insert({
             name,
             whatsapp,
