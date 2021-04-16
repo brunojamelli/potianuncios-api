@@ -1,8 +1,9 @@
+const connection = require('../database/connection');
+
 function generateAccessToken(user) {
     // expires after half and hour (600 seconds = 10 minutes)
     return jwt.sign({ user }, process.env.SECRET, { expiresIn: 600 });
 }
-const connection = require('../database/connection');
 
 module.exports = {
     async create(request, response) {
@@ -29,6 +30,17 @@ module.exports = {
 
         return response.json({ res });
     },
+
+    async profile(request, response) {
+        const { id } = request.params;
+        const user = await connection('advertisers').select('*').where('id', id);
+
+        return response.json({
+            id: user.id,
+            name: user.name,
+        });
+    },
+
     async login(request, response) {
         const username = request.body.username;
         const pwd = request.body.password;
@@ -43,28 +55,6 @@ module.exports = {
         return response.json({ auth: true, token: generateAccessToken(user.id), user: { id: user.id, username: user.username, role: user.role } });
     },
 }
-exports.post = (req, res, next) => {
-    res.status(201).send('Rota POST!');
-};
-
-exports.put = (req, res, next) => {
-    let id = req.params.id;
-    res.status(201).send(`Rota PUT com ID! --> ${id}`);
-};
-
-exports.delete = (req, res, next) => {
-    let id = req.params.id;
-    res.status(200).send(`Rota DELETE com ID! --> ${id}`);
-};
-
-exports.get = (req, res, next) => {
-    res.status(200).send('Rota GET!');
-};
-
-exports.getById = (req, res, next) => {
-    let id = req.params.id;
-    res.status(200).send(`Rota GET com ID! ${id}`);
-};
 
 
 
