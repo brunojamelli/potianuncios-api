@@ -12,7 +12,7 @@ module.exports = {
             return response.status(400).send("Passoword invalid");
         }
 
-        let res = await connection('advertisers').insert({
+        let res = await connection('administrators').insert({
             name,
             email,
             password
@@ -23,7 +23,7 @@ module.exports = {
 
     async profile(request, response) {
         const { id } = request.params;
-        const user = await connection('advertisers').select('*').where('id', id);
+        const user = await connection('administrators').select('*').where('id', id);
 
         return response.json({
             id: user.id,

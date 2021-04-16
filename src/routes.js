@@ -1,8 +1,8 @@
-
 const AdController = require('./controllers/AdvertiserController');
 const AnController = require('./controllers/AnnouncementController');
-const express = require('express');
+const AdmController = require('./controllers/AdminController')
 
+const express = require('express');
 const routes = express.Router();
 
 routes.post('/advertiser', AdController.create);
@@ -13,5 +13,8 @@ routes.post('/advertiser', AdController.create);
 
 routes.post('/announcement', AnController.create);
 routes.get('/announcement', AnController.show);
+
+routes.post('/administrator', AdmController.create);
+routes.get('/administrator', AdmController.profile);
 
 module.exports = routes;
