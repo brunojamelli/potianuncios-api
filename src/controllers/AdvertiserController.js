@@ -36,8 +36,9 @@ module.exports = {
         const user = await connection('advertisers').select('*').where('id', id);
 
         return response.json({
-            id: user.id,
-            name: user.name,
+            // id: user.id,
+            // name: user.name,
+            user
         });
     },
 
