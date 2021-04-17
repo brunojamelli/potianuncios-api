@@ -5,12 +5,13 @@ exports.up = function (knex) {
         table.timestamp('createdAt').defaultTo(knex.fn.now());
         table.timestamp('dateExpiration');
         table.string('category');
-        table.integer('advertiserId').references('id').inTable('advertisers');
+        table.integer('advertiser_id').references('id').inTable('advertisers');
         table.string('title');
         table.string('description');
         table.float('value');
         table.boolean('valid');
-        table.integer('validateFor').references('id').inTable('administrators');        
+        //administrador que validou anuncio
+        table.integer('adm_id').references('id').inTable('administrators');        
     });
 };
 
