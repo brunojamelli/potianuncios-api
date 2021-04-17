@@ -1,21 +1,24 @@
-// const connection = require("../database/connection");
 const connection = require('../database/connection');
 
 module.exports = {
-    create(request, response) {
+    async create(request, response) {
+        const valid = 0, advertiser_id =1;
         const {
-            dateCreation,
-            dateExpiration,
             category,
-            advertiser,
             title,
             description,
-            pictures,
-            valid,
-            validateFor
+            value
         } = request.body;
-        
-        return response.json("cadastrado");
+        let res = await connection('announcements').insert({
+            category,
+            advertiser_id,
+            title,
+            description,
+            value,
+            valid
+        });
+
+        return response.json({ res });
     },
 
     show(request, response) {
