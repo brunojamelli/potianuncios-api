@@ -23,9 +23,10 @@ module.exports = {
         
     },
 
-    show(request, response) {
+    async announcementsById(request, response) {
         const { id } = request.params;
-        // const space = await connection("spaces").select("*").where("id", id);
-        return response.json(`informações anuncio do anunciante ${id}`);
-    }
+        const list = await connection("announcements").select("*").where("advertiser_id", id);
+        console.log(`informações anuncio do anunciante ${id}`);
+        return response.json(list);
+    },
 }

@@ -10,7 +10,7 @@ const express = require('express');
 const routes = express.Router();
 
 routes.post('/advertiser', AdController.create);
-routes.put('/Advertiser/:id', AdController.put);
+routes.put('/Advertiser/:id', AdController.edit);
 // routes.delete('/Advertiser/:id', AdController.delete);
 routes.get('/advertiser/:id', AdController.profile);
 routes.get('/Advertiser', AdController.index);
