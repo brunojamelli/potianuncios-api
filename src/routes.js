@@ -12,8 +12,8 @@ const routes = express.Router();
 routes.post('/advertiser', AdController.create);
 // routes.put('/Advertiser/:id', AdController.put);
 // routes.delete('/Advertiser/:id', AdController.delete);
-// routes.get('/Advertiser', AdController.get);
-// routes.get('/Advertiser/:id', AdController.getById);
+routes.get('/advertiser/:id', AdController.profile);
+routes.get('/Advertiser', AdController.index);
 
 routes.post('/announcement', AnController.create);
 routes.get('/announcement', AnController.show);

@@ -19,7 +19,7 @@ module.exports = {
             return response.status(400).send("Passoword invalid");
         }
 
-        // const id = generateUniqueId();
+        
         let res = await connection('advertisers').insert({
             name,
             whatsapp,
@@ -27,18 +27,21 @@ module.exports = {
             password,
             address
         });
-        return response.status(201).send({result: "success"});
+        return response.status(201).send({ result: "success" });
     },
 
     async profile(request, response) {
         const { id } = request.params;
         const user = await connection('advertisers').select('*').where('id', id);
+        if(user.length == 0) return response.status(400).send("Invalid ID");
+        
+        return response.json(user);
+    },
 
-        return response.json({
-            // id: user.id,
-            // name: user.name,
-            user
-        });
+    async index(request, response) {
+        const advertisers = await connection('advertisers').select('*');
+
+        return response.json(advertisers);
     },
 
     async login(request, response) {
