@@ -2,12 +2,13 @@ const connection = require('../database/connection');
 
 module.exports = {
     async create(request, response) {
-        const valid = 0, advertiser_id =1;
+        const valid = 0;
         const {
             category,
             title,
             description,
-            value
+            value,
+            advertiser_id
         } = request.body;
         let res = await connection('announcements').insert({
             category,
@@ -18,7 +19,8 @@ module.exports = {
             valid
         });
 
-        return response.json({ res });
+        return response.status(201).send({result: "success"});
+        
     },
 
     show(request, response) {

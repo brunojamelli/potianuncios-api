@@ -18,7 +18,8 @@ module.exports = {
             password
         });
 
-        return response.json({ res });
+        return response.status(201).send({result: "success"});
+
     },
 
     async profile(request, response) {
