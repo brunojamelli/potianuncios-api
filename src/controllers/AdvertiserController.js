@@ -19,7 +19,7 @@ module.exports = {
             return response.status(400).send("Passoword invalid");
         }
 
-        
+
         let res = await connection('advertisers').insert({
             name,
             whatsapp,
@@ -33,15 +33,43 @@ module.exports = {
     async profile(request, response) {
         const { id } = request.params;
         const user = await connection('advertisers').select('*').where('id', id);
-        if(user.length == 0) return response.status(400).send("Invalid ID");
-        
+        if (user.length == 0) return response.status(400).send("Invalid ID");
+
         return response.json(user);
     },
 
     async index(request, response) {
         const advertisers = await connection('advertisers').select('*');
-
         return response.json(advertisers);
+    },
+
+    async edit(request, response) {
+        const { id } = request.params;
+        const {
+            name,
+            whatsapp,
+            email,
+            password,
+            address
+        } = request.body;
+
+        const advertiser = await connection("advertisers")
+            .select("id")
+            .where("id", id)
+            .then(([row]) => {
+                if (!row) {
+                    return response.status(400).send("do not exist");
+                }
+                return connection("advertisers")
+                    .update({
+                        'name': name,
+                        'whatsapp': whatsapp,
+                        'email': email,
+                        'address': address
+                    })
+                    .where("id", row.id);
+            });
+        return response.status(200).send("Space edited.");
     },
 
     async login(request, response) {
