@@ -30,4 +30,9 @@ module.exports = {
         console.log(`informações anuncio do anunciante ${id}`);
         return response.json(list);
     },
+
+    async index(request, response) {
+        const list = await connection('announcements').select('*');
+        return response.json(list);
+    },
 }
