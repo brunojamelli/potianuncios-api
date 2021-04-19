@@ -11,7 +11,10 @@ exports.up = function (knex) {
         table.float('value');
         table.boolean('valid');
         //administrador que validou anuncio
-        table.integer('adm_id').references('id').inTable('administrators');        
+        table.integer('adm_id').references('id').inTable('administrators');
+        table.boolean('active');        
+        table.boolean('deleted');
+
     });
 };
 
