@@ -16,7 +16,7 @@ routes.get('/advertiser/:id', AdController.profile);
 routes.get('/Advertiser', AdController.index);
 
 routes.post('/announcement', AnController.create);
-routes.get('/announcement', AnController.show);
+routes.get('/announcement/:id', AnController.announcementsById);
 
 routes.post('/administrator', AdmController.create);
 routes.get('/administrator', AdmController.profile);

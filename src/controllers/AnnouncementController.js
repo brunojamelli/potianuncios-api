@@ -26,6 +26,7 @@ module.exports = {
     async announcementsById(request, response) {
         const { id } = request.params;
         const list = await connection("announcements").select("*").where("advertiser_id", id);
+        if (list.length == 0) return response.status(204).send("Invalid ID");
         console.log(`informações anuncio do anunciante ${id}`);
         return response.json(list);
     },
