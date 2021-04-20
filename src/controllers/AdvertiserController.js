@@ -42,7 +42,7 @@ module.exports = {
         const advertisers = await connection('advertisers').select('*');
         return response.json(advertisers);
     },
-
+    //serviço alterar senha
     async edit(request, response) {
         const { id } = request.params;
         const {
