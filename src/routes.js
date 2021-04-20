@@ -3,21 +3,17 @@ const AnController = require('./controllers/AnnouncementController');
 const AdmController = require('./controllers/AdminController')
 const PhController = require('./controllers/PhotoController')
 const multer = require('multer');// Create multer object
-// const imageUpload = multer({
-//     dest: 'uploads',
-// });
+
 var storage = multer.diskStorage({
     destination: function (req, file, callback) {
         callback(null, './uploads');
     },
     filename: function (req, file, callback) {
-        //file.fieldname + '-' + Date.now()+'.jpg'
-        
         callback(null, `${file.fieldname}-${Date.now()}.jpg`);
     }
 });
 
-var upload = multer({ storage : storage }).array('userPhoto',3);
+var upload = multer({ storage : storage }).array('photo',3);
 
 const express = require('express');
 const routes = express.Router();
