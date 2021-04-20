@@ -49,7 +49,6 @@ module.exports = {
             name,
             whatsapp,
             email,
-            password,
             address
         } = request.body;
 
@@ -69,7 +68,7 @@ module.exports = {
                     })
                     .where("id", row.id);
             });
-        return response.status(200).send("Space edited.");
+        return response.status(200).send("Advertiser Updated");
     },
 
     async login(request, response) {
