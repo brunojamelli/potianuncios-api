@@ -37,4 +37,23 @@ module.exports = {
         const list = await connection('announcements').select('*');
         return response.json(list);
     },
+
+    async desativeAnnouncement(request, response){
+        const { id } = request.params;
+        
+        const announcement = await connection("announcements")
+            .select("id")
+            .where("id", id)
+            .then(([row]) => {
+                if (!row) {
+                    return response.status(400).send("do not exist");
+                }
+                return connection("announcements")
+                    .update({
+                        'active': 0
+                    })
+                    .where("id", row.id);
+            });
+        return response.status(200).send("announcement desactivated");
+    }
 }
