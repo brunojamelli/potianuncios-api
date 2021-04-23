@@ -29,7 +29,7 @@ module.exports = {
                 )
                 );
         });
-        
+
         return response.status(201).send({ result: "success" });
     },
     async show(request, response) {
@@ -38,6 +38,14 @@ module.exports = {
         const fullfilepath = path.join(dirname, 'uploads/' + filename);
         return response.sendFile(fullfilepath);
     },
+
+    async showPhotoNames(request, response){
+        const { id } = request.params;
+        const list = await db("photos").select("filename").where("an_id", id);
+        if (list.length == 0) return response.status(204).send("Invalid ID");
+        console.table(list);
+        return response.json(list);
+    }
 
     
 }

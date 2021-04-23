@@ -28,6 +28,7 @@ routes.post('/announcement', AnController.create);
 routes.get('/announcement/advertiser/:id', AnController.announcementsById);
 routes.get('/announcement', AnController.index);
 routes.delete('/announcement/:id', AnController.deleteAnnouncement);
+
 routes.patch('/announcement/validation/:id', AnController.validationAnnouncement);
 routes.patch('/announcement/desativation/:id', AnController.desativeAnnouncement);
 //anuncio nao pode ser editado, apenas desativado e
@@ -37,6 +38,7 @@ routes.get('/administrator', AdmController.profile);
 
 routes.post('/photo', upload, PhController.create);
 routes.get('/photo/:filename', PhController.show);
+routes.get('/photo/filenames/announcement/:id', PhController.showPhotoNames);
 
 
 module.exports = routes;
