@@ -27,8 +27,9 @@ routes.get('/Advertiser', AdController.index);
 routes.post('/announcement', AnController.create);
 routes.get('/announcement/advertiser/:id', AnController.announcementsById);
 routes.get('/announcement', AnController.index);
-routes.delete('/announcement/:id', AnController.deleteAnnouncement);
+routes.get('/announcement/by_validation', AnController.adsByValidAttribute);
 
+routes.delete('/announcement/:id', AnController.deleteAnnouncement);
 routes.patch('/announcement/validation/:id', AnController.validationAnnouncement);
 routes.patch('/announcement/desativation/:id', AnController.desativeAnnouncement);
 //anuncio nao pode ser editado, apenas desativado e

@@ -38,6 +38,18 @@ module.exports = {
         return response.json(list);
     },
 
+    async adsByValidAttribute(request, response){
+        const {isValid} = request.query;
+        try {
+            const announcement = await connection("announcements")
+            .select("*")
+            .where("valid", isValid);
+            return response.json(announcement); 
+        } catch (error) {
+            return response.status(400).json(error);
+        }
+    },
+
     async desativeAnnouncement(request, response) {
         const { id } = request.params;
 
@@ -99,6 +111,7 @@ module.exports = {
         } catch (error) {
             return response.json(error)
         }
-
     }
+
+    
 }
