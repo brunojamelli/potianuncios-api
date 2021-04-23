@@ -42,4 +42,6 @@ module.exports = {
         const fullfilepath = path.join(dirname, 'uploads/' + filename);
         return response.sendFile(fullfilepath);
     },
+
+    
 }
