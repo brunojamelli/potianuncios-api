@@ -21,8 +21,8 @@ module.exports = {
             deleted
         });
 
-        return response.status(201).send({result: "success"});
-        
+        return response.status(201).send({ result: "success" });
+
     },
 
     async announcementsById(request, response) {
@@ -38,9 +38,9 @@ module.exports = {
         return response.json(list);
     },
 
-    async desativeAnnouncement(request, response){
+    async desativeAnnouncement(request, response) {
         const { id } = request.params;
-        
+
         const announcement = await connection("announcements")
             .select("id")
             .where("id", id)
@@ -54,6 +54,51 @@ module.exports = {
                     })
                     .where("id", row.id);
             });
-        return response.status(200).send("announcement desactivated");
+        console.log(announcement);
+        if (announcement) return response.status(200).send("announcement desactivated");
+    },
+
+    async deleteAnnouncement(request, response) {
+        const { id } = request.params;
+
+        const announcement = await connection("announcements")
+            .select("id")
+            .where("id", id)
+            .then(([row]) => {
+                if (!row) {
+                    return response.status(400).send("do not exist");
+                }
+                return connection("announcements")
+                    .update({
+                        'deleted': 1
+                    })
+                    .where("id", row.id);
+            });
+        console.log(announcement);
+        if (announcement) return response.status(200).send("announcement deleted");
+    },
+
+    async validationAnnouncement(request, response) {
+        try {
+            const { id } = request.params;
+            const announcement = await connection("announcements")
+                .select("id")
+                .where("id", id)
+                .then(([row]) => {
+                    if (!row) {
+                        return response.status(400).send("do not exist");
+                    }
+                    return connection("announcements")
+                        .update({
+                            'valid': 1
+                        })
+                        .where("id", row.id);
+                });
+            console.log(announcement);
+            return response.status(200).send("announcement validated");
+        } catch (error) {
+            return response.json(error)
+        }
+
     }
 }

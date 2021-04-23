@@ -29,11 +29,7 @@ module.exports = {
                 )
                 );
         });
-
-
-
-
-        // return response.json('/image api');
+        
         return response.status(201).send({ result: "success" });
     },
     async show(request, response) {
