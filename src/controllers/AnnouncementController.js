@@ -38,13 +38,26 @@ module.exports = {
         return response.json(list);
     },
 
-    async adsByValidAttribute(request, response){
-        const {isValid} = request.query;
+    async adsByValidAttribute(request, response) {
+        const { isValid } = request.query;
         try {
             const announcement = await connection("announcements")
-            .select("*")
-            .where("valid", isValid);
-            return response.json(announcement); 
+                .select("*")
+                .where("valid", isValid);
+            return response.json(announcement);
+        } catch (error) {
+            return response.status(400).json(error);
+        }
+    },
+
+    async adsByCreationDate(request, response) {
+        const { quantity } = request.query;
+        try {
+            const list = await connection("announcements")
+                .select("*")
+                .orderBy('createdAt')
+                .limit(quantity)
+            return response.json(list);
         } catch (error) {
             return response.status(400).json(error);
         }
@@ -113,5 +126,5 @@ module.exports = {
         }
     }
 
-    
+
 }

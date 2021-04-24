@@ -28,6 +28,8 @@ routes.post('/announcement', AnController.create);
 routes.get('/announcement/advertiser/:id', AnController.announcementsById);
 routes.get('/announcement', AnController.index);
 routes.get('/announcement/by_validation', AnController.adsByValidAttribute);
+routes.get('/announcement/ordered', AnController.adsByCreationDate);
+
 
 routes.delete('/announcement/:id', AnController.deleteAnnouncement);
 routes.patch('/announcement/validation/:id', AnController.validationAnnouncement);
