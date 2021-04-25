@@ -3,6 +3,7 @@ const AnController = require('./controllers/AnnouncementController');
 const AdmController = require('./controllers/AdminController')
 const PhController = require('./controllers/PhotoController')
 const multer = require('multer');// Create multer object
+const { celebrate, Segments, Joi } = require('celebrate');
 
 var storage = multer.diskStorage({
     destination: function (req, file, callback) {
@@ -13,12 +14,20 @@ var storage = multer.diskStorage({
     }
 });
 
-var upload = multer({ storage : storage }).array('photo',3);
+var upload = multer({ storage: storage }).array('photo', 3);
 
 const express = require('express');
 const routes = express.Router();
 
-routes.post('/advertiser', AdController.create);
+routes.post('/advertiser', celebrate({
+    [Segments.BODY]: Joi.object().keys({
+        name: Joi.string().required(),
+        whatsapp: Joi.string().required(),
+        email: Joi.string().required(),
+        password: Joi.string().required(),
+        address: Joi.optional()
+    })
+}), AdController.create);
 routes.put('/Advertiser/:id', AdController.edit);
 // routes.delete('/Advertiser/:id', AdController.delete);
 routes.get('/advertiser/:id', AdController.profile);
