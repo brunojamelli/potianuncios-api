@@ -33,7 +33,15 @@ routes.put('/Advertiser/:id', AdController.edit);
 routes.get('/advertiser/:id', AdController.profile);
 routes.get('/Advertiser', AdController.index);
 
-routes.post('/announcement', AnController.create);
+routes.post('/announcement', celebrate({
+    [Segments.BODY]: Joi.object().keys({
+        category: Joi.string().required().min(5),
+        title: Joi.string().required().min(5),
+        description: Joi.string().required().min(10),
+        value: Joi.number().required(),
+        advertiser_id: Joi.optional()
+    })
+}), AnController.create);
 routes.get('/announcement/advertiser/:id', AnController.announcementsById);
 routes.get('/announcement', AnController.index);
 routes.get('/announcement/by_validation', AnController.adsByValidAttribute);
