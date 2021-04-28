@@ -10,11 +10,13 @@ var storage = multer.diskStorage({
         callback(null, './uploads');
     },
     filename: function (req, file, callback) {
-        callback(null, `${file.fieldname}-${Date.now()}.jpg`);
+        console.log(file)
+        callback(null, `${Date.now()} - ${file.originalname}`);
+
     }
 });
 
-var upload = multer({ storage: storage }).array('photo', 3);
+var upload = multer({ storage: storage }).array('photo', 6);
 
 const express = require('express');
 const routes = express.Router();
