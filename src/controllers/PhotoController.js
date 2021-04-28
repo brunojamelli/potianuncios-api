@@ -7,7 +7,7 @@ module.exports = {
         var filename, filepath, mimetype, size;
         request.files.forEach(element => {
             filename = element.filename;
-            filepath = element.filename;
+            filepath = `uploads/${element.filename}`;
             mimetype = element.mimetype;
             size = element.size;
             db

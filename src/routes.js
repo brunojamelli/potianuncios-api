@@ -4,6 +4,7 @@ const AdmController = require('./controllers/AdminController')
 const PhController = require('./controllers/PhotoController')
 const multer = require('multer');// Create multer object
 const { celebrate, Segments, Joi } = require('celebrate');
+const path = require('path');
 
 var storage = multer.diskStorage({
     destination: function (req, file, callback) {
@@ -12,7 +13,16 @@ var storage = multer.diskStorage({
     filename: function (req, file, callback) {
         console.log(file)
         callback(null, `${Date.now()} - ${file.originalname}`);
-
+    },
+    // fileFilter: function (req, file, callback) {
+    //     var ext = path.extname(file.originalname);
+    //     if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
+    //         return callback(new Error('Only images are allowed'))
+    //     }
+    //     callback(null, true)
+    // },
+    limits: {
+        fileSize: 1024 * 1024
     }
 });
 
