@@ -1,7 +1,8 @@
-const authPage = (permissions) => {
+const roleController = (permissions) => {
     return (req, res, next) => {
         const userRole = req.body.role;
-        if (permissions.include(userRole)) {
+        if (permissions.includes(userRole)) {
+            console.log(userRole);
             next();
         } else {
             return res.status(401).json("You dont have permission");
@@ -9,4 +10,4 @@ const authPage = (permissions) => {
     }
 }
 
-module.exports = { authPage }
+module.exports = { roleController }
