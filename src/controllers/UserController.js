@@ -43,9 +43,6 @@ module.exports = {
         const user = admins.find(u => u.username === username && u.password === pwd);
 
         if (!user) { return response.status(500).json({ auth: false, message: 'Login inválido!' }); }
-        return response.json({ auth: true, token: generateAccessToken(user.id), user: { id: user.id, username: user.username, role: user.role } });
-    },
-    teste(request, response) {
-        return response.json({ message: "chegou" });
-    },
+        return response.json({ auth: true, token: generateAccessToken({id: user.id, role: user.role}), user: { id: user.id, username: user.username, role: user.role } });
+    }
 }

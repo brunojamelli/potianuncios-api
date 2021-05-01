@@ -4,7 +4,7 @@ const AdmController = require('./controllers/AdminController');
 const PhController = require('./controllers/PhotoController');
 const UserController = require('./controllers/UserController');
 
-const authMid = require('./middlewares/authMiddleware');
+const authMid = require('./helpers/authMiddleware');
 const verifyJWT = require('./helpers/auth');
 
 const multer = require('multer');// Create multer object
@@ -31,7 +31,9 @@ const routes = express.Router();
 
 routes.post('/loginAn', UserController.loginAn);
 routes.post('/loginAdmin', UserController.loginAdmin);
-
+routes.get('/onlyadmin', verifyJWT, authMid.roleController(["admin"]), (req, res) => {
+    res.json({ message: 'bem vindo meu camarada' });
+});
 routes.post('/advertiser', celebrate({
     [Segments.BODY]: Joi.object().keys({
         name: Joi.string().required(),
@@ -72,8 +74,6 @@ routes.post('/photo', upload, PhController.create);
 routes.get('/photo/:filename', PhController.show);
 routes.get('/photo/filenames/announcement/:id', PhController.showPhotoNames);
 
-routes.get('/onlyadmin', authMid.roleController(["admin"]), (req, res) => {
-    res.json({ message: 'chegou aqui em mano' });
-});
+
 
 module.exports = routes;
