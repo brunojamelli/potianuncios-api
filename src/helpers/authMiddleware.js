@@ -4,17 +4,13 @@ const roleController = (permissions) => {
     return (req, res, next) => {
         const token = req.headers.authorization;
         let decoded_token, user_role;
-        console.log(token);
-        // console.log(`decoded | ${decoded_token.user}`)
+        console.log(`encoded token - ${token}`);
         jwt.verify(token, process.env.SECRET, function (err, decoded) {
-            //     console.log(decoded);
             decoded_token = decoded
         });
-        console.log(`decoded info ${decoded_token.user.role}`);
         user_role = decoded_token.user.role;
-        // const userRole = req.params.userRole;
         if (permissions.includes(user_role)) {
-            // console.log(body);
+            console.log(`decoded token role info - ${decoded_token.user.role}`);
             next();
         } else {
             // console.log(userRole);

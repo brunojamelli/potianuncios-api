@@ -29,11 +29,16 @@ var upload = multer({ storage: storage }).array('photo', 6);
 const express = require('express');
 const routes = express.Router();
 
-routes.post('/loginAn', UserController.loginAn);
+routes.post('/loginAn', UserController.loginAdvertiser);
 routes.post('/loginAdmin', UserController.loginAdmin);
 routes.get('/onlyadmin', verifyJWT, authMid.roleController(["admin"]), (req, res) => {
-    res.json({ message: 'bem vindo meu camarada' });
+    res.json({ message: 'bem vindo meu camarada adm !!!' });
 });
+
+routes.get('/all_loged', verifyJWT, authMid.roleController(["admin","basic"]), (req, res) => {
+    res.json({ message: 'bem vindo meu anunciante !!!' });
+});
+
 routes.post('/advertiser', celebrate({
     [Segments.BODY]: Joi.object().keys({
         name: Joi.string().required(),

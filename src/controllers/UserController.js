@@ -27,14 +27,14 @@ const admins = [
 ]
 module.exports = {
 
-    async loginAn(request, response) {
+    async loginAdvertiser(request, response) {
         const username = request.body.username;
         const pwd = request.body.password;
 
         const user = advertisers.find(u => u.username === username && u.password === pwd);
 
         if (!user) { return response.status(500).json({ auth: false, message: 'Login inválido!' }); }
-        return response.json({ auth: true, token: generateAccessToken(user.id), user: { id: user.id, username: user.username, role: user.role } });
+        return response.json({ auth: true, token: generateAccessToken({id: user.id, role: user.role}), user: { id: user.id, username: user.username, role: user.role } });
     },
     async loginAdmin(request, response) {
         const username = request.body.username;

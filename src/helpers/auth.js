@@ -14,14 +14,3 @@ module.exports = function verifyJWT(req, res, next) {
         next();
     });
 }
-
-    // verifyADM(req, res, next){
-    //     if(req.role ==  admin){
-    //         return res.status(500).json({ auth: false, message: 'Failed' });
-    //     }else {
-    //         next();
-    //     }
-    // }
-
-
-
