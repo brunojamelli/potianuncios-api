@@ -13,7 +13,6 @@ const roleController = (permissions) => {
             console.log(`decoded token role info - ${decoded_token.user.role}`);
             next();
         } else {
-            // console.log(userRole);
             return res.status(401).json("You dont have permission");
         }
     }

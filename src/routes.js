@@ -41,7 +41,7 @@ routes.get('/onlyadmin02', verifyJWT, authMid.roleController(["admin"]), (req, r
 routes.get('/onlyadmin03', verifyJWT, authMid.roleController(["admin"]), (req, res) => {
     res.json({ message: 'FAROFA' });
 });
-routes.get('/all_loged', verifyJWT, authMid.roleController(["admin","basic"]), (req, res) => {
+routes.get('/all_loged', verifyJWT, authMid.roleController(["admin", "basic"]), (req, res) => {
     res.json({ message: 'uhahuahuahu !!!' });
 });
 
@@ -77,7 +77,7 @@ routes.post('/announcement', celebrate({
 }), AnController.create);
 routes.get('/announcement/advertiser/:id', AnController.announcementsById);
 routes.get('/announcement', AnController.index);
-routes.get('/announcement/by_validation', AnController.adsByValidAttribute);
+routes.get('/announcement/by_validation', verifyJWT, authMid.roleController(["admin"]), AnController.adsByValidAttribute);
 routes.get('/announcement/ordered', AnController.adsByCreationDate);
 
 
