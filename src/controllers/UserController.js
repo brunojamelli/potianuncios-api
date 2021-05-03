@@ -1,4 +1,4 @@
-// const connection = require('../database/connection');
+const connection = require('../database/connection');
 const jwt = require('jsonwebtoken');
 function generateAccessToken(user) {
     // expires after half and hour (600 seconds = 10 minutes)
@@ -9,7 +9,7 @@ const ROLE = {
     ADMIN: 'admin',
     BASIC: 'basic'
 }
-const advertisers = [
+const advertisers_ = [
     { id: 1, username: 'morato', password: 'teter', name: 'antonio luiz da silva', role: ROLE.BASIC },
     { id: 2, username: 'cano', password: 'ether', name: 'german cano', role: ROLE.BASIC },
     { id: 3, username: 'marquinhos', password: 'nano', name: 'marquinhos gabriel', role: ROLE.BASIC },
@@ -17,7 +17,7 @@ const advertisers = [
 
 ];
 
-const admins = [
+const admins_ = [
     { id: 1, username: 'german', password: 'USDC', name: 'germam', role: ROLE.ADMIN },
     { id: 2, username: 'franco', password: 'bitcoin', name: 'gonzales', role: ROLE.ADMIN },
     { id: 3, username: 'zola', password: 'b4', name: 'carneiro', role: ROLE.ADMIN },
@@ -28,19 +28,21 @@ const admins = [
 module.exports = {
 
     async loginAdvertiser(request, response) {
-        const username = request.body.username;
+        const email = request.body.email;
         const pwd = request.body.password;
-
-        const user = advertisers.find(u => u.username === username && u.password === pwd);
+        const advertisers = await connection('advertisers').select('*');
+        
+        const user = advertisers.find(u => u.email === email && u.password === pwd);
 
         if (!user) { return response.status(500).json({ auth: false, message: 'Login inválido!' }); }
         return response.json({ auth: true, token: generateAccessToken({id: user.id, role: user.role}), user: { id: user.id, username: user.username, role: user.role } });
     },
     async loginAdmin(request, response) {
-        const username = request.body.username;
+        const email = request.body.email;
         const pwd = request.body.password;
+        const admins = await connection('administrators').select('*');
 
-        const user = admins.find(u => u.username === username && u.password === pwd);
+        const user = admins.find(u => u.email === email && u.password === pwd);
 
         if (!user) { return response.status(500).json({ auth: false, message: 'Login inválido!' }); }
         return response.json({ auth: true, token: generateAccessToken({id: user.id, role: user.role}), user: { id: user.id, username: user.username, role: user.role } });
