@@ -31,17 +31,27 @@ const routes = express.Router();
 
 routes.post('/loginAn', UserController.loginAdvertiser);
 routes.post('/loginAdmin', UserController.loginAdmin);
+
 routes.get('/onlyadmin', verifyJWT, authMid.roleController(["admin"]), (req, res) => {
-    res.json({ message: 'bem vindo meu camarada adm !!!' });
+    res.json({ message: 'FEIJAO' });
 });
-
+routes.get('/onlyadmin02', verifyJWT, authMid.roleController(["admin"]), (req, res) => {
+    res.json({ message: 'ARROZ' });
+});
+routes.get('/onlyadmin03', verifyJWT, authMid.roleController(["admin"]), (req, res) => {
+    res.json({ message: 'FAROFA' });
+});
 routes.get('/all_loged', verifyJWT, authMid.roleController(["admin","basic"]), (req, res) => {
+    res.json({ message: 'uhahuahuahu !!!' });
+});
+
+routes.get('/anunciante_view01', verifyJWT, authMid.roleController(["basic"]), (req, res) => {
+    res.json({ message: 'bem vindo meu anunciante !!!' });
+});
+routes.get('/anunciante_view02', verifyJWT, authMid.roleController(["basic"]), (req, res) => {
     res.json({ message: 'bem vindo meu anunciante !!!' });
 });
 
-routes.get('/only_advertiser', verifyJWT, authMid.roleController(["basic"]), (req, res) => {
-    res.json({ message: 'bem vindo meu anunciante !!!' });
-});
 
 routes.post('/advertiser', celebrate({
     [Segments.BODY]: Joi.object().keys({
