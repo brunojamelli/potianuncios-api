@@ -39,6 +39,10 @@ routes.get('/all_loged', verifyJWT, authMid.roleController(["admin","basic"]), (
     res.json({ message: 'bem vindo meu anunciante !!!' });
 });
 
+routes.get('/only_advertiser', verifyJWT, authMid.roleController(["basic"]), (req, res) => {
+    res.json({ message: 'bem vindo meu anunciante !!!' });
+});
+
 routes.post('/advertiser', celebrate({
     [Segments.BODY]: Joi.object().keys({
         name: Joi.string().required(),

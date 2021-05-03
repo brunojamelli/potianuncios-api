@@ -7,6 +7,7 @@ exports.up = function(knex) {
         table.string('email'); 
         table.string('password');
         table.string('address'); 
+        table.string('role'); 
     });
 };
 

@@ -9,6 +9,7 @@ exports.up = function (knex) {
         table.string('title');
         table.string('description');
         table.float('value');
+        table.integer('quantity');
         table.boolean('valid');
         //administrador que validou anuncio
         table.integer('adm_id').references('id').inTable('administrators');
