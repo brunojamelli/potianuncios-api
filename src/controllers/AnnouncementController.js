@@ -34,7 +34,29 @@ module.exports = {
     },
 
     async index(request, response) {
-        const list = await connection('announcements').select('*');
+        const { ordered, quantity, title, category, price } = request.query;
+        console.log(request.query)
+        let list;
+
+        if (ordered == null && quantity == null) {
+            // console.log(quantity);
+            list = await connection('announcements').select('*');
+        } else if (quantity != null && ordered != null) {
+            list = await connection('announcements')
+                .select("*")
+                .orderBy('createdAt')
+                .limit(quantity);
+        } else if (ordered == 'desc' && quantity == null) {
+            list = await connection('announcements')
+                .select("*")
+                .orderBy('createdAt', 'desc');
+        } else {
+            list = await connection('announcements')
+                .select("*")
+                .orderBy('createdAt', 'desc')
+                .limit(quantity);
+        }
+
         return response.json(list);
     },
 
@@ -125,6 +147,5 @@ module.exports = {
             return response.json(error)
         }
     }
-
 
 }
