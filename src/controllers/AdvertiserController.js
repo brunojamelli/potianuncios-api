@@ -14,7 +14,7 @@ module.exports = {
             password,
             address
         } = request.body;
-
+        const role = 'basic';
         if (password == undefined || password.length < 8 || password == '') {
             return response.status(400).send("Passoword invalid");
         }
@@ -25,7 +25,8 @@ module.exports = {
             whatsapp,
             email,
             password,
-            address
+            address,
+            role
         });
         return response.status(201).send({ result: "success" });
     },

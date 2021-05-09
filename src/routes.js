@@ -56,8 +56,8 @@ routes.get('/anunciante_view02', verifyJWT, authMid.roleController(["basic"]), (
 routes.post('/advertiser', celebrate({
     [Segments.BODY]: Joi.object().keys({
         name: Joi.string().required(),
-        whatsapp: Joi.string().required(),
-        email: Joi.string().required(),
+        whatsapp: Joi.string().required().min(9),
+        email: Joi.string().email(),
         password: Joi.string().required(),
         address: Joi.optional()
     })
@@ -68,9 +68,9 @@ routes.get('/Advertiser', AdController.index);
 
 routes.post('/announcement', celebrate({
     [Segments.BODY]: Joi.object().keys({
-        category: Joi.string().required().min(5),
+        category: Joi.string().required().min(4),
         title: Joi.string().required().min(5),
-        description: Joi.string().required().min(10),
+        description: Joi.string().required().min(8),
         value: Joi.number().required(),
         advertiser_id: Joi.optional()
     })
