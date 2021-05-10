@@ -72,6 +72,7 @@ routes.post('/announcement', celebrate({
         title: Joi.string().required().min(5),
         description: Joi.string().required().min(8),
         value: Joi.number().required(),
+        quantity: Joi.optional(),
         advertiser_id: Joi.optional()
     })
 }), AnController.create);

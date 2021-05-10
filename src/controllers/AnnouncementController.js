@@ -8,6 +8,7 @@ module.exports = {
             title,
             description,
             value,
+            quantity,
             advertiser_id
         } = request.body;
         let res = await connection('announcements').insert({
@@ -16,6 +17,7 @@ module.exports = {
             title,
             description,
             value,
+            quantity,
             valid,
             active,
             deleted
