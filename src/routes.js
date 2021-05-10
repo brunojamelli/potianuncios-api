@@ -88,7 +88,7 @@ routes.patch('/announcement/desativation/:id', AnController.desativeAnnouncement
 //anuncio nao pode ser editado, apenas desativado e
 
 routes.post('/administrator', AdmController.create);
-routes.get('/administrator', AdmController.profile);
+routes.get('/administrator', AdmController.index);
 
 routes.post('/photo', upload, PhController.create);
 routes.get('/photo/:filename', PhController.show);

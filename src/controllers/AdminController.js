@@ -5,20 +5,25 @@ module.exports = {
         const {
             name,
             email,
-            password
+            password,
         } = request.body;
-        
+        const role = 'admin';
         if (password == undefined || password.length < 8 || password == '') {
             return response.status(400).send("Passoword invalid");
         }
+        try {
+            let res = await connection('administrators').insert({
+                name,
+                email,
+                password,
+                role
+            });
 
-        let res = await connection('administrators').insert({
-            name,
-            email,
-            password
-        });
+            return response.status(201).send({ result: "created" });
+        } catch (error) {
+            return response.status(400).send({error: 'not created'})
+        }
 
-        return response.status(201).send({result: "success"});
 
     },
 
@@ -31,4 +36,9 @@ module.exports = {
             name: user.name,
         });
     },
+
+    async index(request, response) {
+        const list = await connection('administrators').select('*');
+        return response.json(list);
+    }
 }
