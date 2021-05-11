@@ -15,25 +15,14 @@
 
 
 ## ℹ️ Sobre o projeto
-Enim commodo adipisicing est adipisicing proident dolore elit.
- [Escola Agrícola de Jundiaí](https://eaj.ufrn.br/).
+Uma ferramenta para divulgação e gestão de anúncios de pequenos produtores
+rurais do RN. um projeto em conjunto com a [Escola Agrícola de Jundiaí](https://eaj.ufrn.br/).
 
- ## ⚙️ Funcionalidades
-
-- [x] Reprehenderit consequat deserunt ea sunt amet quis amet ipsum fugiat voluptate ad laboris magna.
-- [x] Id amet ex sit elit.
-- [x] Ullamco eiusmod culpa cupidatat qui veniam.
-- [x] Ipsum ea consectetur ut consectetur commodo ipsum Lorem ad mollit voluptate aliqua consectetur enim.
-
----
-
-
----
 
 ## 🚀 Como executar o projeto
 
 Este projeto é divido em duas partes:
-1. Backend ([backend folder]())
+1. Backend ([backend folder]()) (esse repositório)
 2. Frontend ([frontend folder]())
 
 💡Frontend precisa que o Backend esteja sendo executado para funcionar.
@@ -46,20 +35,20 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
 ```bash
 
 # Clone este repositório
-$ git clone https://github.com/brunojamelli/potianuncios-api.git
+git clone https://github.com/brunojamelli/potianuncios-api.git
 
 # Acesse a pasta do projeto no terminal/cmd
-$ cd potianuncios-api
+cd potianuncios-api
 
 ```
 #### 🐳 Se você não tem o docker
 ```bash
 
 # baixe o instalador genérico do site oficial do docker
-$ curl -fsSL https://get.docker.com -o get-docker.sh
+curl -fsSL https://get.docker.com -o get-docker.sh
 
 # usando instalador genérico
-$ sh get-docker.sh
+sh get-docker.sh
 
 ```
 
@@ -67,19 +56,19 @@ $ sh get-docker.sh
 
 ```bash
 
-# Vá para a pasta da aplicação Backend
-$ cd backend
-
 # Instale as dependências
-$ npm install
+npm install
+
+# Crie o banco de dados
+knex migrate:latest
+
+# Preencha o banco de dados com dados fake para testes
+knex seed:run
 
 # Execute a aplicação 
-$ docker-compose up --build
+npm start
 
 # O servidor inciará na porta:3333 - acesse http://localhost:3333
-
-# Execute os testes
-$ docker exec api-server npm test
 
 ```
 
