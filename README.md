@@ -16,7 +16,7 @@
 
 ## ℹ️ Sobre o projeto
 Uma ferramenta para divulgação e gestão de anúncios de pequenos produtores
-rurais do RN. um projeto em conjunto com a [Escola Agrícola de Jundiaí](https://eaj.ufrn.br/).
+rurais do RN, um projeto em conjunto com a [Escola Agrícola de Jundiaí](https://eaj.ufrn.br/).
 
 
 ## 🚀 Como executar o projeto
@@ -88,7 +88,7 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - **[Morgan](https://github.com/expressjs/morgan)**
 - **[Pg](https://github.com/brianc/node-postgres)**
 
-> Veja o arquivo [package.json](https://github.com/BiaChacon/spaces-scheduling/blob/master/backend/package.json)
+> Veja o arquivo [package.json](https://github.com/brunojamelli/potianuncios-api/blob/master/package.json)
 
 ---
 
@@ -102,6 +102,6 @@ As seguintes ferramentas foram usadas na construção do projeto:
 ---
 
 ## 📝 Licença
-This project is under MIT. See at here [LICENSE](https://github.com/BiaChacon/spaces-scheduling/blob/master/LICENSE) for more informations.
+This project is under MIT. See at here [LICENSE](https://github.com/brunojamelli/potianuncios-api/blob/master/LICENSE) for more informations.
 
 ---
