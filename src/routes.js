@@ -57,7 +57,8 @@ routes.post('/announcement', celebrate({
 }), AnController.create);
 routes.get('/announcement/advertiser/:id', AnController.announcementsById);
 routes.get('/announcement', AnController.index);
-routes.get('/announcement/by_validation', verifyJWT, authMid.roleController(["admin"]), AnController.adsByValidAttribute);
+// routes.get('/announcement/by_validation', verifyJWT, authMid.roleController(["admin"]), AnController.adsByValidAttribute);
+routes.get('/announcement/by_validation', AnController.adsByValidAttribute);
 routes.get('/announcement/ordered', AnController.adsByCreationDate);
 
 
