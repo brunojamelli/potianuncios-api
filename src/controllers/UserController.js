@@ -2,7 +2,7 @@ const connection = require('../database/connection');
 const jwt = require('jsonwebtoken');
 function generateAccessToken(user) {
     // expires after half and hour (600 seconds = 10 minutes)
-    return jwt.sign({ user }, process.env.SECRET, { expiresIn: 600 });
+    return jwt.sign({ user }, process.env.SECRET, { expiresIn: 1200 });
 }
 // users hardcoded for simplicity, store in a db for production applications
 const ROLE = {
