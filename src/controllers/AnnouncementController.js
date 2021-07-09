@@ -29,10 +29,33 @@ module.exports = {
 
     async announcementsById(request, response) {
         const { id } = request.params;
+        const { filterBy } = request.query;
         const list = await connection("announcements").select("*").where("advertiser_id", id);
         if (list.length == 0) return response.status(204).send("Invalid ID");
+
+        switch (filterBy) {
+            default:
+                const list1 = await connection("announcements").select("*").where("advertiser_id", id);
+                return response.json(list1);
+            case "valids":
+                const list2 = await connection("announcements").
+                    select("*")
+                    .where("advertiser_id", id)
+                    .where("valid", true);
+                return response.json(list2);
+            case "invalids":
+                const list3 = await connection("announcements").
+                    select("*")
+                    .where("advertiser_id", id)
+                    .where("valid", false);
+                return response.json(list3);
+        }
+
+        // if(filterBy == ){
+
+        // }
         console.log(`informações anuncio do anunciante ${id}`);
-        return response.json(list);
+
     },
 
     async index(request, response) {
