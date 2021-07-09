@@ -32,7 +32,7 @@ module.exports = {
         const { filterBy } = request.query;
         const list = await connection("announcements").select("*").where("advertiser_id", id);
         if (list.length == 0) return response.status(204).send("Invalid ID");
-
+        console.log(`informações anuncio do anunciante ${id}`);
         switch (filterBy) {
             default:
                 const list1 = await connection("announcements").select("*").where("advertiser_id", id);
@@ -49,12 +49,24 @@ module.exports = {
                     .where("advertiser_id", id)
                     .where("valid", false);
                 return response.json(list3);
+            case "activated":
+                const list4 = await connection("announcements").
+                    select("*")
+                    .where("advertiser_id", id)
+                    .where("active", true);
+                return response.json(list4);
+            case "disabled":
+                const list5 = await connection("announcements").
+                    select("*")
+                    .where("advertiser_id", id)
+                    .where("active", false);
+                return response.json(list5);
         }
 
         // if(filterBy == ){
 
         // }
-        console.log(`informações anuncio do anunciante ${id}`);
+        
 
     },
 
