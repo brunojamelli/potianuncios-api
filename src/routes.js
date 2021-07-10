@@ -28,10 +28,11 @@ var upload = multer({ storage: storage }).array('photo', 6);
 
 const express = require('express');
 const routes = express.Router();
-
+// advertiser route
 routes.post('/loginAn', UserController.loginAdvertiser);
 routes.post('/loginAdmin', UserController.loginAdmin);
 
+// advertiser route
 routes.post('/advertiser', celebrate({
     [Segments.BODY]: Joi.object().keys({
         name: Joi.string().required(),
@@ -41,10 +42,13 @@ routes.post('/advertiser', celebrate({
         address: Joi.optional()
     })
 }), AdController.create);
-routes.put('/Advertiser/:id', AdController.edit);
-routes.get('/advertiser/:id', AdController.profile);
-routes.get('/Advertiser', verifyJWT, authMid.roleController(["admin"]), AdController.index);
+// advertiser route
+routes.put('/Advertiser/:id', verifyJWT, authMid.roleController(["basic"]), AdController.edit);
+// advertiser route
+routes.get('/advertiser/:id', verifyJWT, authMid.roleController(["basic"]), AdController.profile);
 
+routes.get('/Advertiser', verifyJWT, authMid.roleController(["admin"]), AdController.index);
+// advertiser route
 routes.post('/announcement', celebrate({
     [Segments.BODY]: Joi.object().keys({
         category: Joi.string().required().min(4),
@@ -55,7 +59,8 @@ routes.post('/announcement', celebrate({
         advertiser_id: Joi.optional()
     })
 }), AnController.create);
-routes.get('/announcement/advertiser/:id', AnController.announcementsById);
+// advertiser route
+routes.get('/announcement/advertiser/:id', verifyJWT, authMid.roleController(["basic"]), AnController.announcementsById);
 routes.get('/announcement', verifyJWT, authMid.roleController(["admin"]), AnController.index);
 // routes.get('/announcement/by_validation', verifyJWT, authMid.roleController(["admin"]), AnController.adsByValidAttribute);
 routes.get('/announcement/by_validation', verifyJWT, authMid.roleController(["admin"]), AnController.adsByValidAttribute);
@@ -66,7 +71,6 @@ routes.delete('/announcement/:id', AnController.deleteAnnouncement);
 routes.patch('/announcement/validation/:id', AnController.validationAnnouncement);
 routes.patch('/announcement/desativation/:id', AnController.desativeAnnouncement);
 //anuncio nao pode ser editado, apenas desativado e
-
 routes.post('/administrator', verifyJWT, authMid.roleController(["admin"]), AdmController.create);
 routes.get('/administrator', verifyJWT, authMid.roleController(["admin"]), AdmController.index);
 
