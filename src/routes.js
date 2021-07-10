@@ -43,11 +43,11 @@ routes.post('/advertiser', celebrate({
     })
 }), AdController.create);
 // advertiser route
-routes.put('/Advertiser/:id', verifyJWT, authMid.roleController(["basic"]), AdController.edit);
+routes.put('/Advertiser/:id', AdController.edit);
 // advertiser route
-routes.get('/advertiser/:id', verifyJWT, authMid.roleController(["basic"]), AdController.profile);
+routes.get('/advertiser/:id', AdController.profile);
 
-routes.get('/Advertiser', verifyJWT, authMid.roleController(["admin"]), AdController.index);
+routes.get('/Advertiser', AdController.index);
 // advertiser route
 routes.post('/announcement', celebrate({
     [Segments.BODY]: Joi.object().keys({
@@ -60,19 +60,19 @@ routes.post('/announcement', celebrate({
     })
 }), AnController.create);
 // advertiser route
-routes.get('/announcement/advertiser/:id', verifyJWT, authMid.roleController(["basic"]), AnController.announcementsById);
-routes.get('/announcement', verifyJWT, authMid.roleController(["admin"]), AnController.index);
+routes.get('/announcement/advertiser/:id', AnController.announcementsById);
+routes.get('/announcement', verifyJWT, AnController.index);
 // routes.get('/announcement/by_validation', verifyJWT, authMid.roleController(["admin"]), AnController.adsByValidAttribute);
-routes.get('/announcement/by_validation', verifyJWT, authMid.roleController(["admin"]), AnController.adsByValidAttribute);
-routes.get('/announcement/ordered', verifyJWT, authMid.roleController(["admin"]), AnController.adsByCreationDate);
+routes.get('/announcement/by_validation', AnController.adsByValidAttribute);
+routes.get('/announcement/ordered', AnController.adsByCreationDate);
 
 
 routes.delete('/announcement/:id', AnController.deleteAnnouncement);
 routes.patch('/announcement/validation/:id', AnController.validationAnnouncement);
 routes.patch('/announcement/desativation/:id', AnController.desativeAnnouncement);
 //anuncio nao pode ser editado, apenas desativado e
-routes.post('/administrator', verifyJWT, authMid.roleController(["admin"]), AdmController.create);
-routes.get('/administrator', verifyJWT, authMid.roleController(["admin"]), AdmController.index);
+routes.post('/administrator', AdmController.create);
+routes.get('/administrator', AdmController.index);
 
 routes.post('/photo', upload, PhController.create);
 routes.get('/photo/:filename', PhController.show);
