@@ -77,6 +77,7 @@ routes.get('/administrator', verifyJWT, authMid.roleController(["admin"]), AdmCo
 routes.post('/photo', upload, PhController.create);
 routes.get('/photo/:filename', PhController.show);
 routes.get('/photo/filenames/announcement/:id', PhController.showPhotoNames);
+routes.get('/photo/filenames', PhController.showFirstFotoNames);
 
 
 
