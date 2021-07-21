@@ -61,7 +61,7 @@ routes.post('/announcement', celebrate({
 }), AnController.create);
 // advertiser route
 routes.get('/announcement/advertiser/:id', verifyJWT, authMid.roleController(["basic"]), AnController.announcementsById);
-routes.get('/announcement', verifyJWT, authMid.roleController(["admin"]), AnController.index);
+routes.get('/announcement', verifyJWT, authMid.roleController(["admin", "basic"]), AnController.index);
 // routes.get('/announcement/by_validation', verifyJWT, authMid.roleController(["admin"]), AnController.adsByValidAttribute);
 routes.get('/announcement/by_validation', verifyJWT, authMid.roleController(["admin"]), AnController.adsByValidAttribute);
 routes.get('/announcement/ordered', verifyJWT, authMid.roleController(["admin"]), AnController.adsByCreationDate);

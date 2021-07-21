@@ -35,29 +35,36 @@ module.exports = {
         console.log(`informações anuncio do anunciante ${id}`);
         switch (filterBy) {
             default:
-                const list1 = await connection("announcements").select("*").where("advertiser_id", id);
+                const list1 = await connection("announcements")
+                    .select("*")
+                    .where("advertiser_id", id)
+                    .where("deleted", 0);
                 return response.json(list1);
             case "valids":
                 const list2 = await connection("announcements").
                     select("*")
+                    .where("deleted", 0)
                     .where("advertiser_id", id)
                     .where("valid", true);
                 return response.json(list2);
             case "invalids":
                 const list3 = await connection("announcements").
                     select("*")
+                    .where("deleted", 0)
                     .where("advertiser_id", id)
                     .where("valid", false);
                 return response.json(list3);
             case "activated":
                 const list4 = await connection("announcements").
                     select("*")
+                    .where("deleted", 0)
                     .where("advertiser_id", id)
                     .where("active", true);
                 return response.json(list4);
             case "disabled":
                 const list5 = await connection("announcements").
                     select("*")
+                    .where("deleted", 0)
                     .where("advertiser_id", id)
                     .where("active", false);
                 return response.json(list5);
@@ -66,7 +73,7 @@ module.exports = {
         // if(filterBy == ){
 
         // }
-        
+
 
     },
 
@@ -77,19 +84,23 @@ module.exports = {
 
         if (ordered == null && quantity == null) {
             // console.log(quantity);
-            list = await connection('announcements').select('*');
+            list = await connection('announcements')
+                .select('*').where("deleted", 0);
         } else if (quantity != null && ordered != null) {
             list = await connection('announcements')
                 .select("*")
+                .where("deleted", 0)
                 .orderBy('createdAt')
                 .limit(quantity);
         } else if (ordered == 'desc' && quantity == null) {
             list = await connection('announcements')
                 .select("*")
+                .where("deleted", 0)
                 .orderBy('createdAt', 'desc');
         } else {
             list = await connection('announcements')
                 .select("*")
+                .where("deleted", 0)
                 .orderBy('createdAt', 'desc')
                 .limit(quantity);
         }
@@ -102,6 +113,7 @@ module.exports = {
         try {
             const announcement = await connection("announcements")
                 .select("*")
+                .where("deleted", 0)
                 .where("valid", isValid);
             return response.json(announcement);
         } catch (error) {
@@ -114,6 +126,7 @@ module.exports = {
         try {
             const list = await connection("announcements")
                 .select("*")
+                .where("deleted", 0)
                 .orderBy('createdAt')
                 .limit(quantity)
             return response.json(list);
