@@ -155,6 +155,26 @@ module.exports = {
         if (announcement) return response.status(200).send("announcement desactivated");
     },
 
+    async activationAnnouncement(request, response) {
+        const { id } = request.params;
+
+        const announcement = await connection("announcements")
+            .select("id")
+            .where("id", id)
+            .then(([row]) => {
+                if (!row) {
+                    return response.status(400).send("do not exist");
+                }
+                return connection("announcements")
+                    .update({
+                        'active': 1
+                    })
+                    .where("id", row.id);
+            });
+        console.log(announcement);
+        if (announcement) return response.status(200).send("announcement activated");
+    },
+
     async deleteAnnouncement(request, response) {
         const { id } = request.params;
 

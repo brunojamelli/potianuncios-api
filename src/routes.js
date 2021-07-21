@@ -70,6 +70,8 @@ routes.get('/announcement/ordered', verifyJWT, authMid.roleController(["admin"])
 routes.delete('/announcement/:id', AnController.deleteAnnouncement);
 routes.patch('/announcement/validation/:id', AnController.validationAnnouncement);
 routes.patch('/announcement/desativation/:id', AnController.desativeAnnouncement);
+routes.patch('/announcement/activation/:id', AnController.activationAnnouncement);
+
 //anuncio nao pode ser editado, apenas desativado e
 routes.post('/administrator', verifyJWT, authMid.roleController(["admin"]), AdmController.create);
 routes.get('/administrator', verifyJWT, authMid.roleController(["admin"]), AdmController.index);
