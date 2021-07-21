@@ -38,35 +38,40 @@ module.exports = {
                 const list1 = await connection("announcements")
                     .select("*")
                     .where("advertiser_id", id)
-                    .where("deleted", 0);
+                    .where("deleted", 0)
+                    .orderBy('createdAt', 'desc');
                 return response.json(list1);
             case "valids":
                 const list2 = await connection("announcements").
                     select("*")
                     .where("deleted", 0)
                     .where("advertiser_id", id)
-                    .where("valid", true);
+                    .where("valid", true)
+                    .orderBy('createdAt', 'desc');
                 return response.json(list2);
             case "invalids":
                 const list3 = await connection("announcements").
                     select("*")
                     .where("deleted", 0)
                     .where("advertiser_id", id)
-                    .where("valid", false);
+                    .where("valid", false)
+                    .orderBy('createdAt', 'desc');
                 return response.json(list3);
             case "activated":
                 const list4 = await connection("announcements").
                     select("*")
                     .where("deleted", 0)
                     .where("advertiser_id", id)
-                    .where("active", true);
+                    .where("active", true)
+                    .orderBy('createdAt', 'desc');
                 return response.json(list4);
             case "disabled":
                 const list5 = await connection("announcements").
                     select("*")
                     .where("deleted", 0)
                     .where("advertiser_id", id)
-                    .where("active", false);
+                    .where("active", false)
+                    .orderBy('createdAt', 'desc');
                 return response.json(list5);
         }
 
