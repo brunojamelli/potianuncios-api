@@ -90,7 +90,8 @@ module.exports = {
         if (ordered == null && quantity == null) {
             // console.log(quantity);
             list = await connection('announcements')
-                .select('*').where("deleted", 0);
+                .select('*').where("deleted", 0)
+                .orderBy('createdAt', 'desc');
         } else if (quantity != null && ordered != null) {
             list = await connection('announcements')
                 .select("*")
@@ -119,7 +120,8 @@ module.exports = {
             const announcement = await connection("announcements")
                 .select("*")
                 .where("deleted", 0)
-                .where("valid", isValid);
+                .where("valid", isValid)
+                .orderBy('createdAt');
             return response.json(announcement);
         } catch (error) {
             return response.status(400).json(error);
