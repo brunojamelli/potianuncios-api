@@ -81,6 +81,7 @@ routes.get('/photo/:filename', PhController.show);
 routes.get('/photo/filenames/announcement/:id', PhController.showPhotoNames);
 routes.get('/photo/filenames', PhController.showFirstFotoNames);
 
+routes.get('/announcements/public', AnController.publicAnnouncements);
 
 
 module.exports = routes;

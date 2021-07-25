@@ -223,6 +223,21 @@ module.exports = {
         } catch (error) {
             return response.json(error)
         }
+    },
+
+    async publicAnnouncements(request, response) {
+        try {
+            const list = await connection('announcements')
+                .select('*')
+                .where("deleted", 0)
+                .where("active", 1)
+                .where("valid", 1)
+                .orderBy('createdAt', 'desc');
+            return response.status(200).json(list);
+        } catch (error) {
+            return response.status(400).json(error);
+        }
+
     }
 
 }
