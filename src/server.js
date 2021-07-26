@@ -1,4 +1,5 @@
 const app = require('./app');
-const dotenv = require('dotenv');
-dotenv.config();
+require('dotenv/config');
+// dotenv.config();
+console.log(process.env.DATABASE)
 app.listen(process.env.PORT || 3333);

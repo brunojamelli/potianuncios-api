@@ -61,16 +61,18 @@ routes.post('/announcement', celebrate({
 // advertiser route
 routes.get('/announcement/advertiser/:id', verifyJWT, authMid.roleController(["basic"]), AnController.announcementsById);
 routes.get('/announcement', verifyJWT, authMid.roleController(["admin", "basic"]), AnController.index);
-// routes.get('/announcement/by_validation', verifyJWT, authMid.roleController(["admin"]), AnController.adsByValidAttribute);
+
+// rotas de listagem de anúncios na visão do administrador
 routes.get('/announcement/by_validation', verifyJWT, authMid.roleController(["admin"]), AnController.adsByValidAttribute);
 routes.get('/announcement/ordered', verifyJWT, authMid.roleController(["admin"]), AnController.adsByCreationDate);
 
+// rotas para controle de estado dos anúncios
 routes.delete('/announcement/:id', authMid.roleController(["basic"]), AnController.deleteAnnouncement);
 routes.patch('/announcement/validation/:id', AnController.validationAnnouncement);
 routes.patch('/announcement/desativation/:id', AnController.desativeAnnouncement);
 routes.patch('/announcement/activation/:id', AnController.activationAnnouncement);
 
-//anuncio nao pode ser editado, apenas desativado e
+// rotas de cadastro e listagem de administradores
 routes.post('/administrator', verifyJWT, authMid.roleController(["admin"]), AdmController.create);
 routes.get('/administrator', verifyJWT, authMid.roleController(["admin"]), AdmController.index);
 
