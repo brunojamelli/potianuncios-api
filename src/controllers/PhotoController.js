@@ -39,13 +39,17 @@ module.exports = {
         return response.sendFile(fullfilepath);
     },
 
-    async showPhotoNames(request, response){
+    async showPhotoNames(request, response) {
         const { id } = request.params;
         const list = await db("photos").select("filename").where("an_id", id);
         if (list.length == 0) return response.status(204).send("Invalid ID");
         console.table(list);
         return response.json(list);
+    },
+
+    async showFirstFotoNames(request, response) {
+        return response.json(['photo_an_01', 'photo_an_02']);
     }
 
-    
+
 }

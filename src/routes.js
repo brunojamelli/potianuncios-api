@@ -28,10 +28,11 @@ var upload = multer({ storage: storage }).array('photo', 6);
 
 const express = require('express');
 const routes = express.Router();
-
+// rotas de autenticação
 routes.post('/loginAn', UserController.loginAdvertiser);
 routes.post('/loginAdmin', UserController.loginAdmin);
 
+// rota de registro de anúnciantes
 routes.post('/advertiser', celebrate({
     [Segments.BODY]: Joi.object().keys({
         name: Joi.string().required(),
@@ -41,10 +42,12 @@ routes.post('/advertiser', celebrate({
         address: Joi.optional()
     })
 }), AdController.create);
-routes.put('/Advertiser/:id', AdController.edit);
-routes.get('/advertiser/:id', AdController.profile);
-routes.get('/Advertiser', AdController.index);
+// advertiser route
+routes.put('/Advertiser/:id', verifyJWT, authMid.roleController(["basic"]), AdController.edit);
+routes.get('/advertiser/:id', verifyJWT, authMid.roleController(["admin", "basic"]), AdController.profile);
+routes.get('/Advertiser', verifyJWT, authMid.roleController(["admin"]), AdController.index);
 
+// cadastro de anúncio
 routes.post('/announcement', celebrate({
     [Segments.BODY]: Joi.object().keys({
         category: Joi.string().required().min(4),
@@ -55,25 +58,33 @@ routes.post('/announcement', celebrate({
         advertiser_id: Joi.optional()
     })
 }), AnController.create);
-routes.get('/announcement/advertiser/:id', AnController.announcementsById);
-routes.get('/announcement', AnController.index);
-// routes.get('/announcement/by_validation', verifyJWT, authMid.roleController(["admin"]), AnController.adsByValidAttribute);
-routes.get('/announcement/by_validation', AnController.adsByValidAttribute);
-routes.get('/announcement/ordered', AnController.adsByCreationDate);
 
+// advertiser route
+routes.get('/announcement/advertiser/:id', verifyJWT, authMid.roleController(["basic"]), AnController.announcementsById);
+routes.get('/announcement', verifyJWT, authMid.roleController(["admin", "basic"]), AnController.index);
 
-routes.delete('/announcement/:id', AnController.deleteAnnouncement);
+// rotas de listagem de anúncios na visão do administrador
+routes.get('/announcement/by_validation', verifyJWT, authMid.roleController(["admin"]), AnController.adsByValidAttribute);
+routes.get('/announcement/ordered', verifyJWT, authMid.roleController(["admin"]), AnController.adsByCreationDate);
+
+// rotas para controle de estado dos anúncios
+routes.delete('/announcement/:id', authMid.roleController(["basic"]), AnController.deleteAnnouncement);
 routes.patch('/announcement/validation/:id', AnController.validationAnnouncement);
 routes.patch('/announcement/desativation/:id', AnController.desativeAnnouncement);
-//anuncio nao pode ser editado, apenas desativado e
+routes.patch('/announcement/activation/:id', AnController.activationAnnouncement);
 
-routes.post('/administrator', AdmController.create);
-routes.get('/administrator', AdmController.index);
+// rotas de cadastro e listagem de administradores
+routes.post('/administrator', verifyJWT, authMid.roleController(["admin"]), AdmController.create);
+routes.get('/administrator', verifyJWT, authMid.roleController(["admin"]), AdmController.index);
 
+// rotas para a gerencia das fotos dos anúncios
 routes.post('/photo', upload, PhController.create);
 routes.get('/photo/:filename', PhController.show);
 routes.get('/photo/filenames/announcement/:id', PhController.showPhotoNames);
+routes.get('/photo/filenames', PhController.showFirstFotoNames);
 
+// rota de anúncios publicos
+routes.get('/announcements/public', AnController.publicAnnouncements);
 
 
 module.exports = routes;
