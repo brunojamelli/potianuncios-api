@@ -28,11 +28,11 @@ var upload = multer({ storage: storage }).array('photo', 6);
 
 const express = require('express');
 const routes = express.Router();
-// rotas de autenticação na aplicação
+// rotas de autenticação
 routes.post('/loginAn', UserController.loginAdvertiser);
 routes.post('/loginAdmin', UserController.loginAdmin);
 
-// rota para o anunciante se registrar na plataforma
+// rota de registro de anúnciantes
 routes.post('/advertiser', celebrate({
     [Segments.BODY]: Joi.object().keys({
         name: Joi.string().required(),
@@ -42,20 +42,12 @@ routes.post('/advertiser', celebrate({
         address: Joi.optional()
     })
 }), AdController.create);
-
-// rota que permite o administrador cadastrar outros administradores
-routes.post('/administrator', verifyJWT, authMid.roleController(["admin"]), AdmController.create);
-
-// rotas do controle da administração da plataforma
-routes.get('/advertiser/:id', verifyJWT, authMid.roleController(["basic","admin"]), AdController.profile);
-routes.get('/Advertiser', verifyJWT, authMid.roleController(["admin"]), AdController.index);
-routes.get('/announcement/by_validation', verifyJWT, authMid.roleController(["admin"]), AnController.adsByValidAttribute);
-routes.get('/announcement/ordered', verifyJWT, authMid.roleController(["admin"]), AnController.adsByCreationDate);
-// anuncio nao pode ser editado, apenas desativado e
-routes.get('/administrator', verifyJWT, authMid.roleController(["admin"]), AdmController.index);
-routes.patch('/announcement/validation/:id', authMid.roleController(["admin"]), AnController.validationAnnouncement);
-
 // advertiser route
+routes.put('/Advertiser/:id', verifyJWT, authMid.roleController(["basic"]), AdController.edit);
+routes.get('/advertiser/:id', verifyJWT, authMid.roleController(["admin", "basic"]), AdController.profile);
+routes.get('/Advertiser', verifyJWT, authMid.roleController(["admin"]), AdController.index);
+
+// cadastro de anúncio
 routes.post('/announcement', celebrate({
     [Segments.BODY]: Joi.object().keys({
         category: Joi.string().required().min(4),
@@ -66,24 +58,30 @@ routes.post('/announcement', celebrate({
         advertiser_id: Joi.optional()
     })
 }), AnController.create);
-
-// rotas do anunciante
-routes.put('/Advertiser/:id', verifyJWT, authMid.roleController(["basic"]), AdController.edit);
+// advertiser route
 routes.get('/announcement/advertiser/:id', verifyJWT, authMid.roleController(["basic"]), AnController.announcementsById);
 routes.get('/announcement', verifyJWT, authMid.roleController(["admin", "basic"]), AnController.index);
+// routes.get('/announcement/by_validation', verifyJWT, authMid.roleController(["admin"]), AnController.adsByValidAttribute);
+routes.get('/announcement/by_validation', verifyJWT, authMid.roleController(["admin"]), AnController.adsByValidAttribute);
+routes.get('/announcement/ordered', verifyJWT, authMid.roleController(["admin"]), AnController.adsByCreationDate);
 
-// rotas para anunciante manipular os seus anúncios
-routes.delete('/announcement/:id', AnController.deleteAnnouncement);
+routes.delete('/announcement/:id', authMid.roleController(["basic"]), AnController.deleteAnnouncement);
+routes.patch('/announcement/validation/:id', AnController.validationAnnouncement);
 routes.patch('/announcement/desativation/:id', AnController.desativeAnnouncement);
 routes.patch('/announcement/activation/:id', AnController.activationAnnouncement);
 
-// rotas para anunciantes manipularem as fotos dos seus anúncios
+//anuncio nao pode ser editado, apenas desativado e
+routes.post('/administrator', verifyJWT, authMid.roleController(["admin"]), AdmController.create);
+routes.get('/administrator', verifyJWT, authMid.roleController(["admin"]), AdmController.index);
+
+// rotas para a gerencia das fotos dos anúncios
 routes.post('/photo', upload, PhController.create);
 routes.get('/photo/:filename', PhController.show);
 routes.get('/photo/filenames/announcement/:id', PhController.showPhotoNames);
 routes.get('/photo/filenames', PhController.showFirstFotoNames);
 
-// rota de listagem publica de anúncios
+// rota de anúncios publicos
 routes.get('/announcements/public', AnController.publicAnnouncements);
+
 
 module.exports = routes;
