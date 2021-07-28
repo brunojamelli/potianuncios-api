@@ -1,1 +1,1 @@
-web: knex migrate:rollback && knex migrate:latext && knex seed:run && node src/server.js
+npm production_start
