@@ -46,10 +46,10 @@ module.exports = {
       max: 10
     },
     migrations: {
-      directory: './database/migrations',
+      directory: './src/database/migrations',
     },
     seeds: {
-      directory: './database/seeds'
+      directory: './src/database/seeds'
     }
   }
 
