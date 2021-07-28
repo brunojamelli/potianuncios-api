@@ -58,6 +58,7 @@ routes.post('/announcement', celebrate({
         advertiser_id: Joi.optional()
     })
 }), AnController.create);
+
 // advertiser route
 routes.get('/announcement/advertiser/:id', verifyJWT, authMid.roleController(["basic"]), AnController.announcementsById);
 routes.get('/announcement', verifyJWT, authMid.roleController(["admin", "basic"]), AnController.index);
