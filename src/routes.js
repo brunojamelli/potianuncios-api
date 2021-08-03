@@ -85,6 +85,6 @@ routes.get('/photo/filenames', PhController.showFirstFotoNames);
 
 // rota de anúncios publicos
 routes.get('/announcements/public', AnController.publicAnnouncements);
-
+routes.get('/advertiser/public/:id', AdController.profile);
 
 module.exports = routes;
