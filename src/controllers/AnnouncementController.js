@@ -11,19 +11,25 @@ module.exports = {
             quantity,
             advertiser_id
         } = request.body;
-        let res = await connection('announcements').insert({
-            category,
-            advertiser_id,
-            title,
-            description,
-            value,
-            quantity,
-            valid,
-            active,
-            deleted
-        });
+        try {
+            let res = await connection('announcements').insert({
+                category,
+                advertiser_id,
+                title,
+                description,
+                value,
+                quantity,
+                valid,
+                active,
+                deleted
+            });
 
-        return response.status(201).send({ result: "success" });
+            return response.status(201).send({ result: "success" });
+        } catch (error) {
+            return response.status(201).send({ error: error });
+            
+        }
+
 
     },
 
