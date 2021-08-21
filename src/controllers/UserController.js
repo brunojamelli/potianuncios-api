@@ -2,7 +2,7 @@ const connection = require('../database/connection');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
-
+const emailservice = require('../middlewares/email-service');
 async function emailRepository(email) {
     const user = await connection('advertisers').select('*').where('email', email);
     if (user.length == 0) return null;
@@ -62,7 +62,6 @@ module.exports = {
         // busca o email do usuario no banco de dados
         let user = await emailRepository(email);
         console.log(user);
-        const userId = user[0].id;
 
         // caso o email seja um email cadastrado
         if (user != null) {
@@ -87,23 +86,28 @@ module.exports = {
                 text: newPassword
             };
 
-            console.log(userId);
+
             const changes = { password: newPassword }
 
             try {
                 // atualiza no banco de dados a nova senha
+                const userId = user[0].id;
+                console.log(userId);
                 const count = await connection('advertisers').where({ id: userId }).update(changes);
                 if (count) {
                     console.log({ updated: count });
 
                     // envia a senha para o email do usuario
-                    smtp.sendMail(mailOptions, function (error, info) {
-                        if (error) {
-                            return console.log(error);
-                        }
-                        console.log('Message sent: ' + info.response);
-                        return response.status(200).json({ message: 'email sended' });
-                    });
+                    // smtp.sendMail(mailOptions, function (error, info) {
+                    //     if (error) {
+                    //         return console.log(error);
+                    //     }
+                    //     console.log('Message sent: ' + info.response);
+                    //     return response.status(201).json({ message: 'email sended' });
+                    // });
+                    emailservice.send(email, 'Administração Potianuncios', user.name, newPassword);
+                    return response.status(201).json({ message: 'email sended' });
+
                 } else {
                     console.log({ message: "Record not found" })
                 }

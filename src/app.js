@@ -1,4 +1,5 @@
 const express = require('express');
+require('express-async-errors');
 const cors = require('cors');
 const morgan = require('morgan');
 const { errors } = require('celebrate');
