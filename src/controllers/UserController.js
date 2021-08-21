@@ -66,26 +66,8 @@ module.exports = {
         // caso o email seja um email cadastrado
         if (user != null) {
 
-            // cria a configuração do cliente SMTP
-            var smtp = nodemailer.createTransport({
-                host: "smtp.mailtrap.io",
-                port: 2525,
-                auth: {
-                    user: "d45b9b439b0c48",
-                    pass: "fe069bfd158de2"
-                }
-            });
-
             // cria uma nova senha randomicamente
             const newPassword = crypto.randomBytes(4).toString('HEX');
-
-            var mailOptions = {
-                from: 'Administração <3e5ab7b0f9-8cfc28@inbox.mailtrap.io>',
-                to: email,
-                subject: 'Mudança de senha',
-                text: newPassword
-            };
-
 
             const changes = { password: newPassword }
 
@@ -98,14 +80,7 @@ module.exports = {
                     console.log({ updated: count });
 
                     // envia a senha para o email do usuario
-                    // smtp.sendMail(mailOptions, function (error, info) {
-                    //     if (error) {
-                    //         return console.log(error);
-                    //     }
-                    //     console.log('Message sent: ' + info.response);
-                    //     return response.status(201).json({ message: 'email sended' });
-                    // });
-                    emailservice.send(email, 'Administração Potianuncios', user.name, newPassword);
+                    emailservice.send(email, 'Administração Potianuncios', newPassword);
                     return response.status(201).json({ message: 'email sended' });
 
                 } else {
@@ -118,7 +93,7 @@ module.exports = {
 
 
         }
-        else { return response.status(400).send("Invalid user Email"); }
+        else { return response.status(400).send({ message: "Invalid user Email" }); }
     }
 
 
