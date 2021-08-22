@@ -46,7 +46,7 @@ routes.post('/advertiser', celebrate({
 routes.put('/Advertiser/:id', verifyJWT, authMid.roleController(["basic"]), AdController.edit);
 routes.get('/advertiser/:id', verifyJWT, authMid.roleController(["admin", "basic"]), AdController.profile);
 routes.get('/Advertiser', verifyJWT, authMid.roleController(["admin"]), AdController.index);
-
+routes.post('/forgot-password', UserController.forgotPassword);
 // cadastro de anúncio
 routes.post('/announcement', celebrate({
     [Segments.BODY]: Joi.object().keys({
