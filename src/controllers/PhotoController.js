@@ -43,7 +43,7 @@ module.exports = {
         const { id } = request.params;
         const list = await db("photos").select("filename").where("an_id", id);
         if (list.length == 0) return response.status(204).send("Invalid ID");
-        console.table(list);
+        // console.table(list);
         return response.json(list);
     },
 

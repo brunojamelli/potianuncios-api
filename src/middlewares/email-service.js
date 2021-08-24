@@ -1,5 +1,7 @@
-const sgMail = require('@sendgrid/mail')
-sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+const { logger } = require('../logger');
+
 // and easy to do anywhere, even with Node.js
 exports.send = async (to, subject, pass) => {
     const msg = {
@@ -10,9 +12,8 @@ exports.send = async (to, subject, pass) => {
     }
 
     try {
-        console.log("email uuuuuuuu");
         await sgMail.send(msg);
-
+        logger.info("email enviado com sucesso !!!" );
     } catch (error) {
         console.error(error);
 

@@ -16,7 +16,7 @@ var storage = multer.diskStorage({
         callback(null, './uploads');
     },
     filename: function (req, file, callback) {
-        console.log(file)
+        // console.log(file)
         callback(null, `${Date.now()} - ${file.originalname}`);
     },
     limits: {
