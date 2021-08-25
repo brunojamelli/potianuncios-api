@@ -6,6 +6,7 @@ const UserController = require('./controllers/UserController');
 
 const authMid = require('./helpers/authMiddleware');
 const verifyJWT = require('./helpers/auth');
+const multerConfig = require('./config/multer');
 
 const multer = require('multer');// Create multer object
 const { celebrate, Segments, Joi } = require('celebrate');
@@ -24,7 +25,7 @@ var storage = multer.diskStorage({
     }
 });
 
-var upload = multer({ storage: storage }).array('photo', 6);
+var upload = multer({ storage: multerConfig.storage, limits:multerConfig.limits.fileSize, fileFilter: multerConfig.fileFilter }).array('photo', 6);
 
 const express = require('express');
 const routes = express.Router();
