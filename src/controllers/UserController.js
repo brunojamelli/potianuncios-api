@@ -2,7 +2,7 @@ const connection = require('../database/connection');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
-const emailservice = require('../middlewares/email-service');
+const emailservice = require('../services/email-service');
 async function emailRepository(email) {
     const user = await connection('advertisers').select('*').where('email', email);
     if (user.length == 0) return null;
