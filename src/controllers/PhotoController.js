@@ -1,5 +1,6 @@
 const path = require('path');
 const db = require('../database/connection');
+const { logger } = require("../logger");
 
 module.exports = {
     async create(request, response) {
@@ -19,7 +20,7 @@ module.exports = {
                     an_id
                 })
                 .into('photos')
-                .then(() => console.log({ success: true, filename }))
+                .then(() => logger.debug({ callback_image: { success: true, filename } }))//console.log({ success: true, filename }))
                 .catch(err => console.log(
                     {
                         success: false,
