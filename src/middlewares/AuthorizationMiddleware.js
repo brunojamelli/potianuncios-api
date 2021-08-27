@@ -14,7 +14,8 @@ const roleController = (permissions) => {
             logger.debug(`user logged role info - ${decoded_token.user.role}`);
             next();
         } else {
-            return res.status(401).json("You dont have permission");
+            logger.debug("You dont have permission");
+            return res.status(401).json({ message: "invalid credentials" });
         }
     }
 }

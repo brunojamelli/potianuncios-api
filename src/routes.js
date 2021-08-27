@@ -4,8 +4,8 @@ const AdmController = require('./controllers/AdminController');
 const PhController = require('./controllers/PhotoController');
 const UserController = require('./controllers/UserController');
 
-const authMid = require('./helpers/authMiddleware');
-const verifyJWT = require('./helpers/auth');
+const authorize = require('./middlewares/AuthorizationMiddleware');
+const verifyJWT = require('./middlewares/AuthenticationMiddleware');
 const multerConfig = require('./config/multer');
 
 const multer = require('multer');// Create multer object
@@ -44,9 +44,9 @@ routes.post('/advertiser', celebrate({
     })
 }), AdController.create);
 // advertiser route
-routes.put('/Advertiser/:id', verifyJWT, authMid.roleController(["basic"]), AdController.edit);
-routes.get('/advertiser/:id', verifyJWT, authMid.roleController(["admin", "basic"]), AdController.profile);
-routes.get('/Advertiser', verifyJWT, authMid.roleController(["admin"]), AdController.index);
+routes.put('/Advertiser/:id', verifyJWT, authorize.roleController(["basic"]), AdController.edit);
+routes.get('/advertiser/:id', verifyJWT, authorize.roleController(["admin", "basic"]), AdController.profile);
+routes.get('/Advertiser', verifyJWT, authorize.roleController(["admin"]), AdController.index);
 routes.post('/forgot-password', UserController.forgotPassword);
 // cadastro de anúncio
 routes.post('/announcement', celebrate({
@@ -61,22 +61,22 @@ routes.post('/announcement', celebrate({
 }), AnController.create);
 
 // advertiser route
-routes.get('/announcement/advertiser/:id', verifyJWT, authMid.roleController(["basic"]), AnController.announcementsById);
-routes.get('/announcement', verifyJWT, authMid.roleController(["admin", "basic"]), AnController.index);
+routes.get('/announcement/advertiser/:id', verifyJWT, authorize.roleController(["basic"]), AnController.announcementsById);
+routes.get('/announcement', verifyJWT, authorize.roleController(["admin", "basic"]), AnController.index);
 
 // rotas de listagem de anúncios na visão do administrador
-routes.get('/announcement/by_validation', verifyJWT, authMid.roleController(["admin"]), AnController.adsByValidAttribute);
-routes.get('/announcement/ordered', verifyJWT, authMid.roleController(["admin"]), AnController.adsByCreationDate);
+routes.get('/announcement/by_validation', verifyJWT, authorize.roleController(["admin"]), AnController.adsByValidAttribute);
+routes.get('/announcement/ordered', verifyJWT, authorize.roleController(["admin"]), AnController.adsByCreationDate);
 
 // rotas para controle de estado dos anúncios
-routes.delete('/announcement/:id', authMid.roleController(["basic"]), AnController.deleteAnnouncement);
+routes.delete('/announcement/:id', authorize.roleController(["basic"]), AnController.deleteAnnouncement);
 routes.patch('/announcement/validation/:id', AnController.validationAnnouncement);
 routes.patch('/announcement/desativation/:id', AnController.desativeAnnouncement);
 routes.patch('/announcement/activation/:id', AnController.activationAnnouncement);
 
 // rotas de cadastro e listagem de administradores
-routes.post('/administrator', verifyJWT, authMid.roleController(["admin"]), AdmController.create);
-routes.get('/administrator', verifyJWT, authMid.roleController(["admin"]), AdmController.index);
+routes.post('/administrator', verifyJWT, authorize.roleController(["admin"]), AdmController.create);
+routes.get('/administrator', verifyJWT, authorize.roleController(["admin"]), AdmController.index);
 
 // rotas para a gerencia das fotos dos anúncios
 routes.post('/photo', upload, PhController.create);
