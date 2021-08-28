@@ -5,8 +5,9 @@ const logger = pino({
     level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
     prettyPrint: {
         levelFirst: true,
-        colorize: true
-    }
+        colorize: true,
+        translateTime: "yyyy-dd-mm, h:MM:ss TT",
+    },
 });
 
 module.exports.logger = logger;

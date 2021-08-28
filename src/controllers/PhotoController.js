@@ -20,7 +20,7 @@ module.exports = {
                     an_id
                 })
                 .into('photos')
-                .then(() => logger.debug({ callback_image: { success: true, filename } }))//console.log({ success: true, filename }))
+                .then(() => logger.debug({ callback_image: { success: true, filename }},"callback_image"))//console.log({ success: true, filename }))
                 .catch(err => console.log(
                     {
                         success: false,

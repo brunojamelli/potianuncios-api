@@ -5,13 +5,13 @@ const roleController = (permissions) => {
     return (req, res, next) => {
         const token = req.headers.authorization;
         let decoded_token, user_role;
-        logger.debug(`encoded token - ${token}`)
+        logger.debug({ token: token }, "decoded token")
         jwt.verify(token, process.env.SECRET, function (err, decoded) {
             decoded_token = decoded
         });
         user_role = decoded_token.user.role;
         if (permissions.includes(user_role)) {
-            logger.debug(`user logged role info - ${decoded_token.user.role}`);
+            logger.debug({ role: decoded_token.user.role }, `user logged role info`);
             next();
         } else {
             logger.debug("You dont have permission");

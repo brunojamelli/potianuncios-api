@@ -14,6 +14,7 @@ const storageTypes = {
         },
         filename: function (req, file, callback) {
             logger.debug("enviando foto pelo config separado!");
+            logger.debug({ file }, "writting this file");
             callback(null, `${Date.now()} - ${file.originalname}`);
         },
     }),

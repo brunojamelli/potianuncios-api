@@ -1,4 +1,5 @@
 const connection = require('../database/connection');
+const { logger } = require("../logger");
 
 module.exports = {
     async create(request, response) {
@@ -27,7 +28,7 @@ module.exports = {
             return response.status(201).send({ result: "success" });
         } catch (error) {
             return response.status(201).send({ error: error });
-            
+
         }
 
 
@@ -38,7 +39,7 @@ module.exports = {
         const { filterBy } = request.query;
         const list = await connection("announcements").select("*").where("advertiser_id", id);
         if (list.length == 0) return response.status(204).send("Invalid ID");
-        console.log(`informações anuncio do anunciante ${id}`);
+        logger.debug(`informações anuncio do anunciante ${id}`);
         switch (filterBy) {
             default:
                 const list1 = await connection("announcements")
@@ -90,11 +91,10 @@ module.exports = {
 
     async index(request, response) {
         const { ordered, quantity, title, category, price } = request.query;
-        console.log(request.query)
+        logger.debug('announcement_query_params', request.query);
         let list;
 
         if (ordered == null && quantity == null) {
-            // console.log(quantity);
             list = await connection('announcements')
                 .select('*').where("deleted", 0)
                 .orderBy('createdAt', 'desc');
@@ -164,7 +164,7 @@ module.exports = {
                     })
                     .where("id", row.id);
             });
-        console.log(announcement);
+        logger.debug({ announcement }, 'announcement desativation',);
         if (announcement) return response.status(200).send("announcement desactivated");
     },
 
@@ -184,7 +184,7 @@ module.exports = {
                     })
                     .where("id", row.id);
             });
-        console.log(announcement);
+        logger.debug({ announcement }, "announcement activation");
         if (announcement) return response.status(200).send("announcement activated");
     },
 
@@ -204,7 +204,7 @@ module.exports = {
                     })
                     .where("id", row.id);
             });
-        console.log(announcement);
+        logger.debug({ announcement }, "announcement exclusion");
         if (announcement) return response.status(200).send("announcement deleted");
     },
 
@@ -224,7 +224,7 @@ module.exports = {
                         })
                         .where("id", row.id);
                 });
-            console.log(announcement);
+            logger.debug({ announcement }, "announcement validation");
             return response.status(200).send("announcement validated");
         } catch (error) {
             return response.json(error)

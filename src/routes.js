@@ -3,7 +3,7 @@ const AnController = require('./controllers/AnnouncementController');
 const AdmController = require('./controllers/AdminController');
 const PhController = require('./controllers/PhotoController');
 const UserController = require('./controllers/UserController');
-
+const {logger} = require('./logger');
 const authorize = require('./middlewares/AuthorizationMiddleware');
 const verifyJWT = require('./middlewares/AuthenticationMiddleware');
 const multerConfig = require('./config/multer');
@@ -17,7 +17,7 @@ var storage = multer.diskStorage({
         callback(null, './uploads');
     },
     filename: function (req, file, callback) {
-        // console.log(file)
+        
         callback(null, `${Date.now()} - ${file.originalname}`);
     },
     limits: {
