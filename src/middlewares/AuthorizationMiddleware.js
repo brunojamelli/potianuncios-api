@@ -11,7 +11,7 @@ const roleController = (permissions) => {
         });
         user_role = decoded_token.user.role;
         if (permissions.includes(user_role)) {
-            logger.debug({ role: decoded_token.user.role }, `user logged role info`);
+            logger.debug({ role: decoded_token.user.role }, `role info for user logged`);
             next();
         } else {
             logger.debug("You dont have permission");

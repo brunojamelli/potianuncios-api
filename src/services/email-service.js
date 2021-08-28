@@ -13,10 +13,9 @@ exports.send = async (to, subject, pass) => {
 
     try {
         await sgMail.send(msg);
-        logger.info("email enviado com sucesso !!!" );
+        logger.info("email enviado com sucesso !!!");
     } catch (error) {
-        console.error(error);
-
+        logger.error({ "error": error }, "falha ao enviar o email");
         if (error.response) {
             console.error(error.response.body)
         }

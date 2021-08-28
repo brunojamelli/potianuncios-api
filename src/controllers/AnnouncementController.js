@@ -164,7 +164,7 @@ module.exports = {
                     })
                     .where("id", row.id);
             });
-        logger.debug({ announcement }, 'announcement desativation',);
+        logger.info({ announcement }, 'announcement desativation',);
         if (announcement) return response.status(200).send("announcement desactivated");
     },
 
@@ -184,7 +184,7 @@ module.exports = {
                     })
                     .where("id", row.id);
             });
-        logger.debug({ announcement }, "announcement activation");
+        logger.info({ announcement }, "announcement activation");
         if (announcement) return response.status(200).send("announcement activated");
     },
 
@@ -204,7 +204,7 @@ module.exports = {
                     })
                     .where("id", row.id);
             });
-        logger.debug({ announcement }, "announcement exclusion");
+        logger.info({ announcement }, "announcement exclusion");
         if (announcement) return response.status(200).send("announcement deleted");
     },
 
@@ -224,7 +224,7 @@ module.exports = {
                         })
                         .where("id", row.id);
                 });
-            logger.debug({ announcement }, "announcement validation");
+            logger.info({ announcement }, "announcement validation");
             return response.status(200).send("announcement validated");
         } catch (error) {
             return response.json(error)
@@ -241,6 +241,7 @@ module.exports = {
                 .orderBy('createdAt', 'desc');
             return response.status(200).json(list);
         } catch (error) {
+            logger.error({ error }, "error on list action");
             return response.status(400).json(error);
         }
 

@@ -3,6 +3,8 @@ const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 const emailservice = require('../services/email-service');
+const { logger } = require("../logger");
+
 async function emailRepository(email) {
     const user = await connection('advertisers').select('*').where('email', email);
     if (user.length == 0) return null;
@@ -61,7 +63,7 @@ module.exports = {
         const email = request.body.email;
         // busca o email do usuario no banco de dados
         let user = await emailRepository(email);
-        console.log(user);
+        logger.info({ "user": user }, "user founded");
 
         // caso o email seja um email cadastrado
         if (user != null) {
@@ -74,21 +76,19 @@ module.exports = {
             try {
                 // atualiza no banco de dados a nova senha
                 const userId = user[0].id;
-                console.log(userId);
+                logger.info({ "userid": userId }, "user to be updated")
                 const count = await connection('advertisers').where({ id: userId }).update(changes);
                 if (count) {
-                    console.log({ updated: count });
-
                     // envia a senha para o email do usuario
                     emailservice.send(email, 'Administração Potianuncios', newPassword);
                     return response.status(201).json({ message: 'email sended' });
 
                 } else {
-                    console.log({ message: "Record not found" })
+                    logger.info({ message: "Record not found" });
                 }
             } catch (err) {
                 // res.status(500).json({ message: "Error updating new post", error: err })
-                console.log(err);
+                logger.error({ error },"erro");
             }
 
 

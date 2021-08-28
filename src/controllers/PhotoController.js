@@ -20,8 +20,8 @@ module.exports = {
                     an_id
                 })
                 .into('photos')
-                .then(() => logger.debug({ callback_image: { success: true, filename }},"callback_image"))//console.log({ success: true, filename }))
-                .catch(err => console.log(
+                .then(() => logger.debug({ callback: { success: true, filename } }, "callback_image"))
+                .catch(err => logger.error(
                     {
                         success: false,
                         message: 'upload failed',
