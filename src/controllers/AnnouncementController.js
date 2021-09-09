@@ -1,6 +1,5 @@
 const connection = require('../database/connection');
 const { logger } = require("../logger");
-
 module.exports = {
     async create(request, response) {
         const valid = 0, active = 1, deleted = 0;
@@ -24,14 +23,11 @@ module.exports = {
                 active,
                 deleted
             });
-
+            logger.debug({ message: "success" }, "anuncio criado com sucesso");
             return response.status(201).send({ result: "success" });
         } catch (error) {
             return response.status(201).send({ error: error });
-
         }
-
-
     },
 
     async announcementsById(request, response) {

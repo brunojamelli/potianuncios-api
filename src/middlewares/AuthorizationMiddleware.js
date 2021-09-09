@@ -10,6 +10,7 @@ const roleController = (permissions) => {
             decoded_token = decoded
         });
         user_role = decoded_token.user.role;
+        // verifica se o usuario logado tem as permissões que esse recurso exige
         if (permissions.includes(user_role)) {
             logger.debug({ role: decoded_token.user.role }, `role info for user logged`);
             next();
