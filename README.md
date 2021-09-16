@@ -22,8 +22,8 @@ rurais do RN, um projeto em conjunto com a [Escola Agrícola de Jundiaí](https:
 ## 🚀 Como executar o projeto
 
 Este projeto é divido em duas partes:
-1. Backend ([backend folder]()) (esse repositório)
-2. Frontend ([frontend folder]())
+1. Backend ([backend folder](https://github.com/brunojamelli/potianuncios-api))
+2. Frontend ([frontend folder](https://github.com/brunojamelli/poti-front))
 
 💡Frontend precisa que o Backend esteja sendo executado para funcionar.
 
@@ -82,11 +82,14 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - **[Express](https://expressjs.com/)**
 - **[Celebrate](https://github.com/arb/celebrate)**
 - **[CORS](https://expressjs.com/en/resources/middleware/cors.html)**
+- **[Multer](https://github.com/expressjs/multer#readme)**
+- **[@sendgrid/mail](https://sendgrid.com/)**
 - **[KnexJS](http://knexjs.org/)**
+- **[Pg](https://github.com/brianc/node-postgres)**
 - **[Dotenv-safe](https://www.npmjs.com/package/dotenv-safe)**
 - **[Jsonwebtoken](https://github.com/auth0/node-jsonwebtoken)**
 - **[Morgan](https://github.com/expressjs/morgan)**
-- **[Pg](https://github.com/brianc/node-postgres)**
+- **[Pino](https://getpino.io/#/)**
 
 > Veja o arquivo [package.json](https://github.com/brunojamelli/potianuncios-api/blob/master/package.json)
 
